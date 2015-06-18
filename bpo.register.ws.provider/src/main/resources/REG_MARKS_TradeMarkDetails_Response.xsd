@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:include schemaLocation="external/CommonTypes.xsd"/>
+	<!-- ====================================================================== -->
+	<!-- Root element 																															 -->
+	<!-- ====================================================================== -->
+	<!-- Top Level Transaction for all Types of Message                         -->
+	<!-- ====================================================================== -->
+	<xs:element name="Transaction" type="TransactionType"/>
+	<!-- ====================================================================== -->
+	<!-- Filename    : TransactionType.xsd                                      -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="TransactionType">
+		<xs:sequence>
+			<xs:element name="TransactionHeader" type="TransactionHeaderType" minOccurs="0"/>
+			<xs:element name="TradeMarkTransactionBody" type="TransactionBodyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : TransactionBodyType.xsd                                  -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="TransactionBodyType">
+		<xs:sequence>
+			<xs:element name="TransactionErrorDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TransactionError" type="TransactionErrorType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="TransactionContentDetails">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TransactionIdentifier" type="xs:string" minOccurs="0"/>
+						<xs:element name="TransactionCode" type="TransactionCodeType"/>
+						<xs:element name="TransactionData" type="TransactionDataType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : TransactionDataType.xsd                                  -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- Set of Trade Marks                                                -->
+	<!-- ===  			Съдържа един или повече елемента от тип TradeMarkType 								===-->
+	<!-- ====================================================================== -->
+	<xs:complexType name="TransactionDataType">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="TradeMarkDetails">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TradeMark" type="TradeMarkType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- ==== Съдържа данни за една търговска марка 															==== -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="TradeMarkType">
+		<xs:sequence>
+			<xs:element name="RegistrationOfficeCode" type="xs:string" minOccurs="0"/>
+			<!-- Заявителски номер-->
+			<xs:element name="ApplicationNumber" type="xs:string"/>
+			<!-- Дата на заявяване-->
+			<xs:element name="ApplicationDate" type="xs:date"/>
+			<!-- Регистров номер номер -->
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0"/>
+			<!-- Дата на регистрация -->
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0"/>
+			<!-- Дата на изтичане на срока на закрила (или само "срок на закрила")-->
+			<xs:element name="ApplicantSideCaseKey" type="xs:string" minOccurs="0"/>
+			<xs:element name="ApplicationLanguageCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExpiryDate" type="xs:date" minOccurs="0"/>
+			<!-- Статус на марката (правен статус) - изброяване, дефинирано в CommonTypes.xsd-->
+			<xs:element name="MarkCurrentStatusCode" type="MarkCurrentStatusCodeType" minOccurs="0"/>
+			<!-- Дата на придобиване на текущия правен статус-->
+			<xs:element name="MarkCurrentStatusDate" type="xs:date" minOccurs="0"/>
+			<!-- Тип на марката -  изброяване, дефинирано в CommonTypes.xsd -->
+			<xs:element name="KindMark" type="KindMarkType" minOccurs="0"/>
+			<!-- Вид на марката -  изброяване, дефинирано в CommonTypes.xsd -->
+			<xs:element name="MarkFeature" type="MarkFeatureType"/>
+			<!-- Описание на марката - свободен текст, незадължително-->
+			<xs:element name="MarkDescriptionDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MarkDescription" type="xs:token" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- Незащитими елементи - свободен текст, незадължително-->
+			<xs:element name="MarkDisclaimerDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MarkDisclaimer" type="xs:token" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Comment" type="xs:string" minOccurs="0"/>
+			<!-- наименование на марката (в случай че е словна)-->
+			<xs:element name="WordMarkSpecification" type="WordMarkSpecificationType" minOccurs="0"/>
+			<!-- изображение на марката (в случай че е образна, комбинирана, триизмерна или звукова)-->
+			<xs:element name="MarkImageDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<!-- тип (формат) на изобажението - изброяване, дефинирано в CommonTypes.xsd -->
+						<xs:element name="MarkImage" type="MarkImageType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--описание на стоките и услугите съгласно международната класификаия -->
+			<xs:element name="GoodsServicesDetails">
+				<xs:complexType>
+					<xs:sequence>
+						<!-- двойка от вида номер на клас - изброяване на стоки и услуги, съгласно дефиницията в CommonTypes.xsd -->
+						<xs:element name="GoodsServices" type="GoodsServicesType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- конвенционен приоритет - съгласно дефиницията в CommonTypes.xsd -->
+			<xs:element name="PriorityDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Priority" type="PriorityType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- изложбен приоритет - съгласно дефиницията в CommonTypes.xsd -->
+			<xs:element name="ExhibitionPriorityDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExhibitionPriority" type="ExhibitionPriorityType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- данни за публикации в бюлетина на Патентно ведомство - съгласно дефиницията в CommonTypes.xsd -->
+			<xs:element name="PublicationDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Publication" type="PublicationType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--данни за заявителите - съгласно дефиницията в CommonTypes.xsd -->
+			<xs:element name="ApplicantDetails">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Applicant" type="ApplicantType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- данни за представителите по индустриална собственост (ПИС) - съгласно дефиницията в CommonTypes.xsd -->
+			<xs:element name="RepresentativeDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Representative" type="RepresentativeType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
