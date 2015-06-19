@@ -41,6 +41,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
+		<finalName>bpo.register.ws.provider</finalName>
 	</build>
 
 	<dependencies>
