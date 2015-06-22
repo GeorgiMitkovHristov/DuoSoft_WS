@@ -26,7 +26,7 @@ public class BPOSearchService extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("file:/C:/Users/Георги/git/DuoSoft_WS/bpo.register.ws.client/src/main/resources/bpo-register-search.wsdl");
+            url = new URL("http://localhost:8080/bpo.register.ws.provider/services/BPOSearchServiceDefaultPort?wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(BPOSearchService.class.getName())
                 .log(java.util.logging.Level.INFO, 
