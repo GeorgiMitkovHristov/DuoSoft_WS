@@ -208,6 +208,7 @@
 	<xs:complexType name="WordMarkSpecificationType">
 		<xs:sequence>
 			<xs:element minOccurs="0" name="MarkVerbalElementText" type="TextType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="MarkTranslation" type="TextType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<!-- ====================================================================== -->
@@ -233,9 +234,43 @@
 	<xs:complexType name="MarkImageType">
 		<xs:sequence>
 			<xs:element minOccurs="0" name="MarkImageFileFormat" type="FileFormatType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="MarkImageColourClaimedText" type="TextType"/>
+			<xs:element minOccurs="0" name="MarkImageCategory" type="MarkImageCategoryType"/>
 			<xs:element minOccurs="0" name="MarkImageBinary" type="xs:base64Binary"/>
 		</xs:sequence>
 	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : MarkImageCategoryType.xsd                                -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="MarkImageCategoryType">
+		<xs:sequence>
+			<xs:element name="CategoryCodeDetails">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="CategoryCode" type="CategoryCodeType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : CategoryCodeType.xsd                                     -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:simpleType name="CategoryCodeType">
+		<xs:union memberTypes="xs:token">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[0-9][0-9].[0-9][0-9].[0-9][0-9]|[0-9][0-9].[0-9][0-9]|([0-9][0-9]){4}|([0-9][0-9]){6}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<!-- ====================================================================== -->
 	<!-- Filename    : FileFormatType.xsd                                       -->
 	<!-- Author      : TM-XML WG                                                -->
@@ -392,7 +427,6 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element minOccurs="0" name="PostalAddress" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<!-- ====================================================================== -->
@@ -428,7 +462,6 @@
 	<!-- ====================================================================== -->
 	<xs:complexType name="AddressType">
 		<xs:sequence>
-			<xs:element minOccurs="0" name="AddressCountryCode" type="xs:string"/>
 			<xs:choice minOccurs="0">
 				<xs:element name="FormattedAddress" type="FormattedAddressType"/>
 			</xs:choice>
@@ -486,12 +519,6 @@
 	<!-- ====================================================================== -->
 	<xs:complexType name="FormattedAddressType">
 		<xs:sequence>
-			<xs:element maxOccurs="unbounded" minOccurs="0" name="AddressLine" type="TextType"/>
-			<xs:element minOccurs="0" name="AddressMailCode" type="xs:string"/>
-			<xs:element minOccurs="0" name="AddressPostOfficeBox" type="xs:string"/>
-			<xs:element minOccurs="0" name="AddressRoom" type="xs:string"/>
-			<xs:element minOccurs="0" name="AddressFloor" type="xs:string"/>
-			<xs:element minOccurs="0" name="AddressBuilding" type="xs:string"/>
 			<xs:element minOccurs="0" name="AddressStreet" type="xs:string"/>
 			<xs:element minOccurs="0" name="AddressCity" type="xs:string"/>
 			<xs:element minOccurs="0" name="AddressCounty" type="xs:string"/>

@@ -10,21 +10,21 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GoodsServicesType complex type.
+ * <p>Java class for MarkImageCategoryType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GoodsServicesType">
+ * &lt;complexType name="MarkImageCategoryType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ClassDescriptionDetails">
+ *         &lt;element name="CategoryCodeDetails">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="ClassDescription" type="{http://egov.bg/RegiX/PatentDepartment}ClassDescriptionType" maxOccurs="unbounded"/>
+ *                   &lt;element name="CategoryCode" type="{http://egov.bg/RegiX/PatentDepartment}CategoryCodeType" maxOccurs="unbounded"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -39,36 +39,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GoodsServicesType", propOrder = {
-    "classDescriptionDetails"
+@XmlType(name = "MarkImageCategoryType", propOrder = {
+    "categoryCodeDetails"
 })
-public class GoodsServicesType {
+public class MarkImageCategoryType {
 
-    @XmlElement(name = "ClassDescriptionDetails", required = true)
-    protected GoodsServicesType.ClassDescriptionDetails classDescriptionDetails;
+    @XmlElement(name = "CategoryCodeDetails", required = true)
+    protected MarkImageCategoryType.CategoryCodeDetails categoryCodeDetails;
 
     /**
-     * Gets the value of the classDescriptionDetails property.
+     * Gets the value of the categoryCodeDetails property.
      * 
      * @return
      *     possible object is
-     *     {@link GoodsServicesType.ClassDescriptionDetails }
+     *     {@link MarkImageCategoryType.CategoryCodeDetails }
      *     
      */
-    public GoodsServicesType.ClassDescriptionDetails getClassDescriptionDetails() {
-        return classDescriptionDetails;
+    public MarkImageCategoryType.CategoryCodeDetails getCategoryCodeDetails() {
+        return categoryCodeDetails;
     }
 
     /**
-     * Sets the value of the classDescriptionDetails property.
+     * Sets the value of the categoryCodeDetails property.
      * 
      * @param value
      *     allowed object is
-     *     {@link GoodsServicesType.ClassDescriptionDetails }
+     *     {@link MarkImageCategoryType.CategoryCodeDetails }
      *     
      */
-    public void setClassDescriptionDetails(GoodsServicesType.ClassDescriptionDetails value) {
-        this.classDescriptionDetails = value;
+    public void setCategoryCodeDetails(MarkImageCategoryType.CategoryCodeDetails value) {
+        this.categoryCodeDetails = value;
     }
 
 
@@ -82,7 +82,7 @@ public class GoodsServicesType {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="ClassDescription" type="{http://egov.bg/RegiX/PatentDepartment}ClassDescriptionType" maxOccurs="unbounded"/>
+     *         &lt;element name="CategoryCode" type="{http://egov.bg/RegiX/PatentDepartment}CategoryCodeType" maxOccurs="unbounded"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -93,40 +93,40 @@ public class GoodsServicesType {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "classDescription"
+        "categoryCode"
     })
-    public static class ClassDescriptionDetails {
+    public static class CategoryCodeDetails {
 
-        @XmlElement(name = "ClassDescription", required = true)
-        protected List<ClassDescriptionType> classDescription;
+        @XmlElement(name = "CategoryCode", required = true)
+        protected List<String> categoryCode;
 
         /**
-         * Gets the value of the classDescription property.
+         * Gets the value of the categoryCode property.
          * 
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the classDescription property.
+         * This is why there is not a <CODE>set</CODE> method for the categoryCode property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
-         *    getClassDescription().add(newItem);
+         *    getCategoryCode().add(newItem);
          * </pre>
          * 
          * 
          * <p>
          * Objects of the following type(s) are allowed in the list
-         * {@link ClassDescriptionType }
+         * {@link String }
          * 
          * 
          */
-        public List<ClassDescriptionType> getClassDescription() {
-            if (classDescription == null) {
-                classDescription = new ArrayList<ClassDescriptionType>();
+        public List<String> getCategoryCode() {
+            if (categoryCode == null) {
+                categoryCode = new ArrayList<String>();
             }
-            return this.classDescription;
+            return this.categoryCode;
         }
 
     }

@@ -1,117 +1,101 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="bpo-register-search" targetNamespace="http://bg.org/bpo/register/search/" xmlns:Q1="http://egov.bg/RegiX/PatentDepartment" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://bg.org/bpo/register/search/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-  <wsdl:types>
-    <xsd:schema targetNamespace="http://bg.org/bpo/register/search/">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:Q1="http://egov.bg/RegiX/PatentDepartment" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://bg.org/bpo/register/search/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="bpo-register-search" targetNamespace="http://bg.org/bpo/register/search/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://bg.org/bpo/register/search/">
 			<xsd:import namespace="http://egov.bg/RegiX/PatentDepartment" schemaLocation="./REG_MARKS_App_Number_Request.xsd"/>
 		</xsd:schema>
-    <xsd:schema>
+		<xsd:schema>
 			<xsd:import namespace="http://egov.bg/RegiX/PatentDepartment" schemaLocation="REG_MARKS_Reg_Number_Request.xsd"/>
 			<xsd:import namespace="http://egov.bg/RegiX/PatentDepartment" schemaLocation="REG_MARKS_Owner_Request.xsd"/>
 			<xsd:import namespace="http://egov.bg/RegiX/PatentDepartment" schemaLocation="REG_MARKS_Mark_Name_Request.xsd"/>
 			<xsd:import namespace="http://egov.bg/RegiX/PatentDepartment" schemaLocation="REG_MARKS_TradeMarkDetails_Response.xsd"/>
 			<xsd:import namespace="http://egov.bg/RegiX/PatentDepartment" schemaLocation="REG_MARKS_App_Number_Request.xsd"/>
 		</xsd:schema>
-  </wsdl:types>
-  <wsdl:message name="NewOperation1Request3">
-    <wsdl:part name="regNum" element="Q1:getMarkByRegNum">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Request1">
-    <wsdl:part name="markName" element="Q1:getMarksByName">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Request2">
-    <wsdl:part name="ownersName" element="Q1:getMarkByOwnersName">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Response3">
-    <wsdl:part name="GetMarkByRegNumResponse" element="Q1:Transaction">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Response2">
-    <wsdl:part name="GetMarkByOwnersNameResponse" element="Q1:Transaction">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Response">
-    <wsdl:part name="GetMarkByAppNumResponse" element="Q1:Transaction">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Response1">
-    <wsdl:part name="GetMarksByNameResponse" element="Q1:Transaction">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="NewOperation1Request">
-    <wsdl:part name="appNum" element="Q1:getMarkByAppNum">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="BPORegisterSearch">
-    <wsdl:operation name="getMarkByAppNum">
-      <wsdl:input message="tns:NewOperation1Request">
-    </wsdl:input>
-      <wsdl:output message="tns:NewOperation1Response">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getMarksByName">
-      <wsdl:input message="tns:NewOperation1Request1">
-    </wsdl:input>
-      <wsdl:output message="tns:NewOperation1Response1">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getMarkByOwnersName">
-      <wsdl:input message="tns:NewOperation1Request2">
-    </wsdl:input>
-      <wsdl:output message="tns:NewOperation1Response2">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getMarkByRegNum">
-      <wsdl:input message="tns:NewOperation1Request3">
-    </wsdl:input>
-      <wsdl:output message="tns:NewOperation1Response3">
-    </wsdl:output>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="BPORegisterSearchBinding" type="tns:BPORegisterSearch">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getMarkByAppNum">
-      <soap:operation soapAction="http://bg.org/bpo/register/search/getMarkByAppNum"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getMarksByName">
-      <soap:operation soapAction="http://bg.org/bpo/register/search/getMarksByName"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getMarkByOwnersName">
-      <soap:operation soapAction="http://bg.org/bpo/register/search/getMarkByOwnersName"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getMarkByRegNum">
-      <soap:operation soapAction="http://bg.org/bpo/register/search/getMarkByRegNum"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="BPOSearchService">
-    <wsdl:port name="BPOSearchServiceDefaultPort" binding="tns:BPORegisterSearchBinding">
-      <soap:address location="http://localhost:8080/bpo.register.ws.provider/services/BPOSearchServiceDefaultPort"/>
-    </wsdl:port>
-  </wsdl:service>
+	</wsdl:types>
+	<wsdl:message name="NewOperation1Request">
+		<wsdl:part element="Q1:getMarkByAppNum" name="appNum"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Response">
+		<wsdl:part element="Q1:Transaction" name="GetMarkByAppNumResponse"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Request1">
+		<wsdl:part element="Q1:getMarksByName" name="markName"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Response1">
+		<wsdl:part element="Q1:Transaction" name="GetMarksByNameResponse"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Request2">
+		<wsdl:part element="Q1:getMarkByOwnersName" name="ownersName"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Response2">
+		<wsdl:part element="Q1:Transaction" name="GetMarkByOwnersNameResponse"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Request3">
+		<wsdl:part element="Q1:getMarkByRegNum" name="regNum"/>
+	</wsdl:message>
+	<wsdl:message name="NewOperation1Response3">
+		<wsdl:part element="Q1:Transaction" name="GetMarkByRegNumResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="BPORegisterSearch">
+		<wsdl:operation name="getMarkByAppNum">
+			<wsdl:input message="tns:NewOperation1Request"/>
+			<wsdl:output message="tns:NewOperation1Response"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMarksByName">
+			<wsdl:input message="tns:NewOperation1Request1"/>
+			<wsdl:output message="tns:NewOperation1Response1"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMarkByOwnersName">
+			<wsdl:input message="tns:NewOperation1Request2"/>
+			<wsdl:output message="tns:NewOperation1Response2"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMarkByRegNum">
+			<wsdl:input message="tns:NewOperation1Request3"/>
+			<wsdl:output message="tns:NewOperation1Response3"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BPORegisterSearchBinding" type="tns:BPORegisterSearch">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getMarkByAppNum">
+			<soap:operation soapAction="http://bg.org/bpo/register/search/getMarkByAppNum"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMarksByName">
+			<soap:operation soapAction="http://bg.org/bpo/register/search/getMarksByName"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMarkByOwnersName">
+			<soap:operation soapAction="http://bg.org/bpo/register/search/getMarkByOwnersName"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMarkByRegNum">
+			<soap:operation soapAction="http://bg.org/bpo/register/search/getMarkByRegNum"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BPOSearchService">
+		<wsdl:port binding="tns:BPORegisterSearchBinding" name="BPOSearchServiceDefaultPort">
+			<soap:address location="http://www.example.org/"/>
+		</wsdl:port>
+	</wsdl:service>
 </wsdl:definitions>

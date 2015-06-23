@@ -28,6 +28,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="ApplicationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="RegistrationNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="RegistrationDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
+ *         &lt;element name="ApplicationReference" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ApplicantSideCaseKey" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ApplicationLanguageCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ExpiryDate" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
@@ -57,7 +58,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="WordMarkSpecification" type="{http://egov.bg/RegiX/PatentDepartment}WordMarkSpecificationType" minOccurs="0"/>
  *         &lt;element name="MarkImageDetails" minOccurs="0">
  *           &lt;complexType>
@@ -151,6 +151,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "applicationDate",
     "registrationNumber",
     "registrationDate",
+    "applicationReference",
     "applicantSideCaseKey",
     "applicationLanguageCode",
     "expiryDate",
@@ -160,7 +161,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "markFeature",
     "markDescriptionDetails",
     "markDisclaimerDetails",
-    "comment",
     "wordMarkSpecification",
     "markImageDetails",
     "goodsServicesDetails",
@@ -184,6 +184,8 @@ public class TradeMarkType {
     @XmlElement(name = "RegistrationDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar registrationDate;
+    @XmlElement(name = "ApplicationReference")
+    protected String applicationReference;
     @XmlElement(name = "ApplicantSideCaseKey")
     protected String applicantSideCaseKey;
     @XmlElement(name = "ApplicationLanguageCode")
@@ -204,8 +206,6 @@ public class TradeMarkType {
     protected TradeMarkType.MarkDescriptionDetails markDescriptionDetails;
     @XmlElement(name = "MarkDisclaimerDetails")
     protected TradeMarkType.MarkDisclaimerDetails markDisclaimerDetails;
-    @XmlElement(name = "Comment")
-    protected String comment;
     @XmlElement(name = "WordMarkSpecification")
     protected WordMarkSpecificationType wordMarkSpecification;
     @XmlElement(name = "MarkImageDetails")
@@ -341,6 +341,30 @@ public class TradeMarkType {
      */
     public void setRegistrationDate(XMLGregorianCalendar value) {
         this.registrationDate = value;
+    }
+
+    /**
+     * Gets the value of the applicationReference property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getApplicationReference() {
+        return applicationReference;
+    }
+
+    /**
+     * Sets the value of the applicationReference property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setApplicationReference(String value) {
+        this.applicationReference = value;
     }
 
     /**
@@ -557,30 +581,6 @@ public class TradeMarkType {
      */
     public void setMarkDisclaimerDetails(TradeMarkType.MarkDisclaimerDetails value) {
         this.markDisclaimerDetails = value;
-    }
-
-    /**
-     * Gets the value of the comment property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Sets the value of the comment property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setComment(String value) {
-        this.comment = value;
     }
 
     /**

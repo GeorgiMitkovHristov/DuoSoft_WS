@@ -27,8 +27,8 @@ public class ObjectFactory {
     private final static QName _GetMarkByAppNum_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarkByAppNum");
     private final static QName _GetMarksByName_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarksByName");
     private final static QName _GetMarkByOwnersName_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarkByOwnersName");
-    private final static QName _Transaction_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "Transaction");
     private final static QName _GetMarkByRegNum_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarkByRegNum");
+    private final static QName _Transaction_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "Transaction");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: bg.egov.regix.patentdepartment
@@ -51,6 +51,14 @@ public class ObjectFactory {
      */
     public TransactionHeaderType createTransactionHeaderType() {
         return new TransactionHeaderType();
+    }
+
+    /**
+     * Create an instance of {@link MarkImageCategoryType }
+     * 
+     */
+    public MarkImageCategoryType createMarkImageCategoryType() {
+        return new MarkImageCategoryType();
     }
 
     /**
@@ -94,19 +102,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TransactionType }
-     * 
-     */
-    public TransactionType createTransactionType() {
-        return new TransactionType();
-    }
-
-    /**
      * Create an instance of {@link GetMarkByRegNumType }
      * 
      */
     public GetMarkByRegNumType createGetMarkByRegNumType() {
         return new GetMarkByRegNumType();
+    }
+
+    /**
+     * Create an instance of {@link TransactionType }
+     * 
+     */
+    public TransactionType createTransactionType() {
+        return new TransactionType();
     }
 
     /**
@@ -358,6 +366,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MarkImageCategoryType.CategoryCodeDetails }
+     * 
+     */
+    public MarkImageCategoryType.CategoryCodeDetails createMarkImageCategoryTypeCategoryCodeDetails() {
+        return new MarkImageCategoryType.CategoryCodeDetails();
+    }
+
+    /**
      * Create an instance of {@link TransactionDataType.TradeMarkDetails }
      * 
      */
@@ -425,21 +441,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TransactionType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://egov.bg/RegiX/PatentDepartment", name = "Transaction")
-    public JAXBElement<TransactionType> createTransaction(TransactionType value) {
-        return new JAXBElement<TransactionType>(_Transaction_QNAME, TransactionType.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetMarkByRegNumType }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://egov.bg/RegiX/PatentDepartment", name = "getMarkByRegNum")
     public JAXBElement<GetMarkByRegNumType> createGetMarkByRegNum(GetMarkByRegNumType value) {
         return new JAXBElement<GetMarkByRegNumType>(_GetMarkByRegNum_QNAME, GetMarkByRegNumType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TransactionType }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://egov.bg/RegiX/PatentDepartment", name = "Transaction")
+    public JAXBElement<TransactionType> createTransaction(TransactionType value) {
+        return new JAXBElement<TransactionType>(_Transaction_QNAME, TransactionType.class, null, value);
     }
 
 }

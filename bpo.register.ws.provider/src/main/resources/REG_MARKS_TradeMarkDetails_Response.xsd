@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by mazuki (darksiderg) -->
 <xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
-	<xs:include schemaLocation="external/CommonTypes.xsd"/>
+	<xs:include schemaLocation="./external/CommonTypes.xsd"/>
 	<!-- ====================================================================== -->
 	<!-- Root element 																															 -->
 	<!-- ====================================================================== -->
@@ -80,9 +81,10 @@
 			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0"/>
 			<!-- Дата на регистрация -->
 			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0"/>
-			<!-- Дата на изтичане на срока на закрила (или само "срок на закрила")-->
+			<xs:element name="ApplicationReference" type="xs:string" minOccurs="0"/>
 			<xs:element name="ApplicantSideCaseKey" type="xs:string" minOccurs="0"/>
 			<xs:element name="ApplicationLanguageCode" type="xs:string" minOccurs="0"/>
+			<!-- Дата на изтичане на срока на закрила (или само "срок на закрила")-->
 			<xs:element name="ExpiryDate" type="xs:date" minOccurs="0"/>
 			<!-- Статус на марката (правен статус) - изброяване, дефинирано в CommonTypes.xsd-->
 			<xs:element name="MarkCurrentStatusCode" type="MarkCurrentStatusCodeType" minOccurs="0"/>
@@ -108,7 +110,6 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="Comment" type="xs:string" minOccurs="0"/>
 			<!-- наименование на марката (в случай че е словна)-->
 			<xs:element name="WordMarkSpecification" type="WordMarkSpecificationType" minOccurs="0"/>
 			<!-- изображение на марката (в случай че е образна, комбинирана, триизмерна или звукова)-->
