@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="AddressCountryCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;choice minOccurs="0">
  *           &lt;element name="FormattedAddress" type="{http://egov.bg/RegiX/PatentDepartment}FormattedAddressType"/>
  *         &lt;/choice>
@@ -31,39 +30,12 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AddressType", propOrder = {
-    "addressCountryCode",
     "formattedAddress"
 })
 public class AddressType {
 
-    @XmlElement(name = "AddressCountryCode")
-    protected String addressCountryCode;
     @XmlElement(name = "FormattedAddress")
     protected FormattedAddressType formattedAddress;
-
-    /**
-     * Gets the value of the addressCountryCode property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAddressCountryCode() {
-        return addressCountryCode;
-    }
-
-    /**
-     * Sets the value of the addressCountryCode property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAddressCountryCode(String value) {
-        this.addressCountryCode = value;
-    }
 
     /**
      * Gets the value of the formattedAddress property.

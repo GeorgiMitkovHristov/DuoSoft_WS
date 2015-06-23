@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="PostalAddress" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -50,8 +49,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AddressBookType", propOrder = {
     "formattedNameAddress",
-    "contactInformationDetails",
-    "postalAddress"
+    "contactInformationDetails"
 })
 public class AddressBookType {
 
@@ -59,8 +57,6 @@ public class AddressBookType {
     protected FormattedNameAddressType formattedNameAddress;
     @XmlElement(name = "ContactInformationDetails")
     protected AddressBookType.ContactInformationDetails contactInformationDetails;
-    @XmlElement(name = "PostalAddress")
-    protected String postalAddress;
 
     /**
      * Gets the value of the formattedNameAddress property.
@@ -108,30 +104,6 @@ public class AddressBookType {
      */
     public void setContactInformationDetails(AddressBookType.ContactInformationDetails value) {
         this.contactInformationDetails = value;
-    }
-
-    /**
-     * Gets the value of the postalAddress property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPostalAddress() {
-        return postalAddress;
-    }
-
-    /**
-     * Sets the value of the postalAddress property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPostalAddress(String value) {
-        this.postalAddress = value;
     }
 
 

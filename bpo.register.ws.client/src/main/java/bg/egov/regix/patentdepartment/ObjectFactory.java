@@ -54,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MarkImageCategoryType }
+     * 
+     */
+    public MarkImageCategoryType createMarkImageCategoryType() {
+        return new MarkImageCategoryType();
+    }
+
+    /**
      * Create an instance of {@link TransactionDataType }
      * 
      */
@@ -355,6 +363,14 @@ public class ObjectFactory {
      */
     public TransactionHeaderType.SenderDetails createTransactionHeaderTypeSenderDetails() {
         return new TransactionHeaderType.SenderDetails();
+    }
+
+    /**
+     * Create an instance of {@link MarkImageCategoryType.CategoryCodeDetails }
+     * 
+     */
+    public MarkImageCategoryType.CategoryCodeDetails createMarkImageCategoryTypeCategoryCodeDetails() {
+        return new MarkImageCategoryType.CategoryCodeDetails();
     }
 
     /**
