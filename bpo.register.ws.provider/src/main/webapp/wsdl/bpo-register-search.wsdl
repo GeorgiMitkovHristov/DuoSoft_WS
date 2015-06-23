@@ -16,25 +16,25 @@
 		<wsdl:part element="Q1:getMarkByAppNum" name="appNum"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response">
-		<wsdl:part element="Q1:Transaction" name="GetMarkByAppNumResponse"/>
+		<wsdl:part element="Q1:TradeMarkDetails" name="GetMarkByAppNumResponse"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Request1">
 		<wsdl:part element="Q1:getMarksByName" name="markName"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response1">
-		<wsdl:part element="Q1:Transaction" name="GetMarksByNameResponse"/>
+		<wsdl:part element="Q1:TradeMarkDetails" name="GetMarksByNameResponse"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Request2">
 		<wsdl:part element="Q1:getMarkByOwnersName" name="ownersName"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response2">
-		<wsdl:part element="Q1:Transaction" name="GetMarkByOwnersNameResponse"/>
+		<wsdl:part element="Q1:TradeMarkDetails" name="GetMarkByOwnersNameResponse"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Request3">
 		<wsdl:part element="Q1:getMarkByRegNum" name="regNum"/>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response3">
-		<wsdl:part element="Q1:Transaction" name="GetMarkByRegNumResponse"/>
+		<wsdl:part element="Q1:TradeMarkDetails" name="GetMarkByRegNumResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="BPORegisterSearch">
 		<wsdl:operation name="getMarkByAppNum">

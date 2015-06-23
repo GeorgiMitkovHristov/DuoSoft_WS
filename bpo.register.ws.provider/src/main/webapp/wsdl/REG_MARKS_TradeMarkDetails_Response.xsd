@@ -2,67 +2,12 @@
 	<xs:include schemaLocation="./external/CommonTypes.xsd"/>
 	<!-- ====================================================================== -->
 	<!-- Root element 																															 -->
+<xs:element name="TradeMarkDetails" type="TradeMarkDetailsType"/>
 	<!-- ====================================================================== -->
-	<!-- Top Level Transaction for all Types of Message                         -->
-	<!-- ====================================================================== -->
-	<xs:element name="Transaction" type="TransactionType"/>
-	<!-- ====================================================================== -->
-	<!-- Filename    : TransactionType.xsd                                      -->
-	<!-- Author      : TM-XML WG                                                -->
-	<!-- Version     : 1.3                                                      -->
-	<!-- Last Update : 2009-10-23                                               -->
-	<!-- ====================================================================== -->
-	<xs:complexType name="TransactionType">
-		<xs:sequence>
-			<xs:element minOccurs="0" name="TransactionHeader" type="TransactionHeaderType"/>
-			<xs:element maxOccurs="unbounded" minOccurs="0" name="TradeMarkTransactionBody" type="TransactionBodyType"/>
-		</xs:sequence>
-	</xs:complexType>
-	<!-- ====================================================================== -->
-	<!-- Filename    : TransactionBodyType.xsd                                  -->
-	<!-- Author      : TM-XML WG                                                -->
-	<!-- Version     : 1.3                                                      -->
-	<!-- Last Update : 2009-10-23                                               -->
-	<!-- ====================================================================== -->
-	<xs:complexType name="TransactionBodyType">
-		<xs:sequence>
-			<xs:element minOccurs="0" name="TransactionErrorDetails">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element maxOccurs="unbounded" name="TransactionError" type="TransactionErrorType"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="TransactionContentDetails">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element minOccurs="0" name="TransactionIdentifier" type="xs:string"/>
-						<xs:element name="TransactionCode" type="TransactionCodeType"/>
-						<xs:element name="TransactionData" type="TransactionDataType"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-	<!-- ====================================================================== -->
-	<!-- Filename    : TransactionDataType.xsd                                  -->
-	<!-- Author      : TM-XML WG                                                -->
-	<!-- Version     : 1.3                                                      -->
-	<!-- Last Update : 2009-10-23                                               -->
-	<!-- Set of Trade Marks                                                -->
 	<!-- ===  			Съдържа един или повече елемента от тип TradeMarkType 								===-->
-	<!-- ====================================================================== -->
-	<xs:complexType name="TransactionDataType">
+	<xs:complexType name="TradeMarkDetailsType">
 		<xs:sequence>
-			<xs:choice minOccurs="0">
-				<xs:element name="TradeMarkDetails">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element maxOccurs="unbounded" name="TradeMark" type="TradeMarkType"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-			</xs:choice>
+			<xs:element maxOccurs="unbounded" name="TradeMark" type="TradeMarkType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<!-- ====================================================================== -->

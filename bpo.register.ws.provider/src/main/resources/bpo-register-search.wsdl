@@ -26,25 +26,25 @@
 		<wsdl:part name="appNum" element="Q1:getMarkByAppNum"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response">
-		<wsdl:part name="GetMarkByAppNumResponse" element="Q1:Transaction"></wsdl:part>
+		<wsdl:part name="GetMarkByAppNumResponse" element="Q1:TradeMarkDetails"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Request1">
 		<wsdl:part name="markName" element="Q1:getMarksByName"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response1">
-		<wsdl:part name="GetMarksByNameResponse" element="Q1:Transaction"></wsdl:part>
+		<wsdl:part name="GetMarksByNameResponse" element="Q1:TradeMarkDetails"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Request2">
 		<wsdl:part name="ownersName" element="Q1:getMarkByOwnersName"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response2">
-		<wsdl:part name="GetMarkByOwnersNameResponse" element="Q1:Transaction"></wsdl:part>
+		<wsdl:part name="GetMarkByOwnersNameResponse" element="Q1:TradeMarkDetails"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Request3">
 		<wsdl:part name="regNum" element="Q1:getMarkByRegNum"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="NewOperation1Response3">
-		<wsdl:part name="GetMarkByRegNumResponse" element="Q1:Transaction"></wsdl:part>
+		<wsdl:part name="GetMarkByRegNumResponse" element="Q1:TradeMarkDetails"></wsdl:part>
 	</wsdl:message>
 	<wsdl:portType name="BPORegisterSearch">
 		<wsdl:operation name="getMarkByAppNum">

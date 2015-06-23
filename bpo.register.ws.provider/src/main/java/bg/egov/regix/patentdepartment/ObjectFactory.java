@@ -27,8 +27,8 @@ public class ObjectFactory {
     private final static QName _GetMarkByAppNum_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarkByAppNum");
     private final static QName _GetMarksByName_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarksByName");
     private final static QName _GetMarkByOwnersName_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarkByOwnersName");
+    private final static QName _TradeMarkDetails_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "TradeMarkDetails");
     private final static QName _GetMarkByRegNum_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "getMarkByRegNum");
-    private final static QName _Transaction_QNAME = new QName("http://egov.bg/RegiX/PatentDepartment", "Transaction");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: bg.egov.regix.patentdepartment
@@ -59,22 +59,6 @@ public class ObjectFactory {
      */
     public MarkImageCategoryType createMarkImageCategoryType() {
         return new MarkImageCategoryType();
-    }
-
-    /**
-     * Create an instance of {@link TransactionDataType }
-     * 
-     */
-    public TransactionDataType createTransactionDataType() {
-        return new TransactionDataType();
-    }
-
-    /**
-     * Create an instance of {@link TransactionBodyType }
-     * 
-     */
-    public TransactionBodyType createTransactionBodyType() {
-        return new TransactionBodyType();
     }
 
     /**
@@ -110,11 +94,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TransactionType }
+     * Create an instance of {@link TradeMarkDetailsType }
      * 
      */
-    public TransactionType createTransactionType() {
-        return new TransactionType();
+    public TradeMarkDetailsType createTradeMarkDetailsType() {
+        return new TradeMarkDetailsType();
     }
 
     /**
@@ -374,30 +358,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TransactionDataType.TradeMarkDetails }
-     * 
-     */
-    public TransactionDataType.TradeMarkDetails createTransactionDataTypeTradeMarkDetails() {
-        return new TransactionDataType.TradeMarkDetails();
-    }
-
-    /**
-     * Create an instance of {@link TransactionBodyType.TransactionErrorDetails }
-     * 
-     */
-    public TransactionBodyType.TransactionErrorDetails createTransactionBodyTypeTransactionErrorDetails() {
-        return new TransactionBodyType.TransactionErrorDetails();
-    }
-
-    /**
-     * Create an instance of {@link TransactionBodyType.TransactionContentDetails }
-     * 
-     */
-    public TransactionBodyType.TransactionContentDetails createTransactionBodyTypeTransactionContentDetails() {
-        return new TransactionBodyType.TransactionContentDetails();
-    }
-
-    /**
      * Create an instance of {@link AddressBookType.ContactInformationDetails }
      * 
      */
@@ -441,21 +401,21 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TradeMarkDetailsType }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://egov.bg/RegiX/PatentDepartment", name = "TradeMarkDetails")
+    public JAXBElement<TradeMarkDetailsType> createTradeMarkDetails(TradeMarkDetailsType value) {
+        return new JAXBElement<TradeMarkDetailsType>(_TradeMarkDetails_QNAME, TradeMarkDetailsType.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetMarkByRegNumType }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://egov.bg/RegiX/PatentDepartment", name = "getMarkByRegNum")
     public JAXBElement<GetMarkByRegNumType> createGetMarkByRegNum(GetMarkByRegNumType value) {
         return new JAXBElement<GetMarkByRegNumType>(_GetMarkByRegNum_QNAME, GetMarkByRegNumType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TransactionType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://egov.bg/RegiX/PatentDepartment", name = "Transaction")
-    public JAXBElement<TransactionType> createTransaction(TransactionType value) {
-        return new JAXBElement<TransactionType>(_Transaction_QNAME, TransactionType.class, null, value);
     }
 
 }
