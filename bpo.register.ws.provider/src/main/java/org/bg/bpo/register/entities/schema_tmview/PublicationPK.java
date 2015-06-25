@@ -19,6 +19,7 @@ public class PublicationPK implements Serializable {
 
 	public PublicationPK() {
 	}
+	
 	public String getIdappli() {
 		return this.idappli;
 	}
