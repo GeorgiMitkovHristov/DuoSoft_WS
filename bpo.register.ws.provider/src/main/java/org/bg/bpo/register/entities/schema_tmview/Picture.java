@@ -1,4 +1,4 @@
-package org.bg.bpo.register.entities.tmview;
+package org.bg.bpo.register.entities.schema_tmview;
 
 import java.io.Serializable;
 
@@ -12,13 +12,14 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Picture.findAll", query="SELECT p FROM Picture p")
 @Table(name="picture", schema="tmview")
+@NamedQuery(name="Picture.findAll", query="SELECT p FROM Picture p")
 public class Picture implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="PICTURE_IDAPPLI_GENERATOR", sequenceName="ORDER_SEQUENCE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PICTURE_IDAPPLI_GENERATOR")
 	private String idappli;
 
 	private Integer cdcolor;

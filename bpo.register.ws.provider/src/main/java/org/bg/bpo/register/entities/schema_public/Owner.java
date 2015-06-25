@@ -1,7 +1,6 @@
-package org.bg.bpo.register.entities.publicschema;
+package org.bg.bpo.register.entities.schema_public;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 

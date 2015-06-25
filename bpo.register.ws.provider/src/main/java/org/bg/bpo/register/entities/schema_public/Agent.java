@@ -1,7 +1,6 @@
-package org.bg.bpo.register.entities.publicschema;
+package org.bg.bpo.register.entities.schema_public;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 
@@ -10,8 +9,8 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Agent.findAll", query="SELECT a FROM Agent a")
 @Table(name="agent", schema="public")
+@NamedQuery(name="Agent.findAll", query="SELECT a FROM Agent a")
 public class Agent implements Serializable {
 	private static final long serialVersionUID = 1L;
 

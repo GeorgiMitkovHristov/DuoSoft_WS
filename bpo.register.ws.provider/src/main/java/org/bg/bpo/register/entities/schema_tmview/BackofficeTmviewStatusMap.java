@@ -1,7 +1,6 @@
-package org.bg.bpo.register.entities.tmview;
+package org.bg.bpo.register.entities.schema_tmview;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 

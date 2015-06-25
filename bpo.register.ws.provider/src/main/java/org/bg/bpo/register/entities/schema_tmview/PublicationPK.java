@@ -1,7 +1,6 @@
-package org.bg.bpo.register.entities.tmview;
+package org.bg.bpo.register.entities.schema_tmview;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 /**
@@ -9,16 +8,16 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
-public class PriorityPK implements Serializable {
+public class PublicationPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	@Column(insertable=false, updatable=false)
 	private String idappli;
 
-	private Integer odprio;
+	private Integer odhisto;
 
-	public PriorityPK() {
+	public PublicationPK() {
 	}
 	public String getIdappli() {
 		return this.idappli;
@@ -26,31 +25,31 @@ public class PriorityPK implements Serializable {
 	public void setIdappli(String idappli) {
 		this.idappli = idappli;
 	}
-	public Integer getOdprio() {
-		return this.odprio;
+	public Integer getOdhisto() {
+		return this.odhisto;
 	}
-	public void setOdprio(Integer odprio) {
-		this.odprio = odprio;
+	public void setOdhisto(Integer odhisto) {
+		this.odhisto = odhisto;
 	}
 
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof PriorityPK)) {
+		if (!(other instanceof PublicationPK)) {
 			return false;
 		}
-		PriorityPK castOther = (PriorityPK)other;
+		PublicationPK castOther = (PublicationPK)other;
 		return 
 			this.idappli.equals(castOther.idappli)
-			&& this.odprio.equals(castOther.odprio);
+			&& this.odhisto.equals(castOther.odhisto);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.idappli.hashCode();
-		hash = hash * prime + this.odprio.hashCode();
+		hash = hash * prime + this.odhisto.hashCode();
 		
 		return hash;
 	}

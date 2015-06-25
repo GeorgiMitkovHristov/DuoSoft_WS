@@ -1,4 +1,4 @@
-package org.bg.bpo.register.entities.tmview;
+package org.bg.bpo.register.entities.schema_tmview;
 
 import java.io.Serializable;
 
@@ -12,8 +12,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Priority.findAll", query="SELECT p FROM Priority p")
 @Table(name="priority", schema="tmview")
+@NamedQuery(name="Priority.findAll", query="SELECT p FROM Priority p")
 public class Priority implements Serializable {
 	private static final long serialVersionUID = 1L;
 

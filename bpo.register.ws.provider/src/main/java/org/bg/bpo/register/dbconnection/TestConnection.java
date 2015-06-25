@@ -9,10 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import org.bg.bpo.register.entities.publicschema.Agent;
-import org.bg.bpo.register.entities.publicschema.Owner;
-import org.bg.bpo.register.entities.tmview.Mark;
-import org.bg.bpo.register.entities.tmview.Own;
+import org.bg.bpo.register.entities.schema_tmview.Mark;
+
 
 public class TestConnection {
 	private static final String PERSISTENCE_UNIT_NAME = "bpo.register.ws.provider";
@@ -41,7 +39,7 @@ public class TestConnection {
 //		Query ownersQuery = em.createQuery("SELECT o FROM Owner o");
 //		List<Owner> owners = ownersQuery.getResultList();
 		
-		
+//		1952120001N
 		Query mQuery = em.createQuery("SELECT m FROM Mark m").setMaxResults(1);
 		List<Mark> marks = mQuery.getResultList();
 		

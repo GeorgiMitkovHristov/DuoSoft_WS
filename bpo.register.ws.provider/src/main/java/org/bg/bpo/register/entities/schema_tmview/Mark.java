@@ -1,4 +1,4 @@
-package org.bg.bpo.register.entities.tmview;
+package org.bg.bpo.register.entities.schema_tmview;
 
 import java.io.Serializable;
 
@@ -13,13 +13,14 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Mark.findAll", query="SELECT m FROM Mark m")
 @Table(name="mark", schema="tmview")
+@NamedQuery(name="Mark.findAll", query="SELECT m FROM Mark m")
 public class Mark implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="MARK_IDAPPLI_GENERATOR", sequenceName="ORDER_SEQUENCE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MARK_IDAPPLI_GENERATOR")
 	private String idappli;
 
 	private String colorclaim;
@@ -72,6 +73,10 @@ public class Mark implements Serializable {
 
 	private String tymark;
 
+	//bi-directional many-to-one association to Classmark
+	@OneToMany(mappedBy="mark")
+	private List<Classmark> classmarks;
+
 	//bi-directional one-to-one association to Picture
 	@OneToOne
 	@JoinColumn(name="idappli", insertable=false, updatable=false)
@@ -81,9 +86,9 @@ public class Mark implements Serializable {
 	@OneToMany(mappedBy="mark")
 	private List<Priority> priorities;
 
-	//bi-directional many-to-one association to Own
+	//bi-directional many-to-one association to Publication
 	@OneToMany(mappedBy="mark")
-	private List<Own> owns;
+	private List<Publication> publications;
 
 	public Mark() {
 	}
@@ -272,6 +277,28 @@ public class Mark implements Serializable {
 		this.tymark = tymark;
 	}
 
+	public List<Classmark> getClassmarks() {
+		return this.classmarks;
+	}
+
+	public void setClassmarks(List<Classmark> classmarks) {
+		this.classmarks = classmarks;
+	}
+
+	public Classmark addClassmark(Classmark classmark) {
+		getClassmarks().add(classmark);
+		classmark.setMark(this);
+
+		return classmark;
+	}
+
+	public Classmark removeClassmark(Classmark classmark) {
+		getClassmarks().remove(classmark);
+		classmark.setMark(null);
+
+		return classmark;
+	}
+
 	public Picture getPicture() {
 		return this.picture;
 	}
@@ -302,26 +329,26 @@ public class Mark implements Serializable {
 		return priority;
 	}
 
-	public List<Own> getOwns() {
-		return this.owns;
+	public List<Publication> getPublications() {
+		return this.publications;
 	}
 
-	public void setOwns(List<Own> owns) {
-		this.owns = owns;
+	public void setPublications(List<Publication> publications) {
+		this.publications = publications;
 	}
 
-	public Own addOwn(Own own) {
-		getOwns().add(own);
-		own.setMark(this);
+	public Publication addPublication(Publication publication) {
+		getPublications().add(publication);
+		publication.setMark(this);
 
-		return own;
+		return publication;
 	}
 
-	public Own removeOwn(Own own) {
-		getOwns().remove(own);
-		own.setMark(null);
+	public Publication removePublication(Publication publication) {
+		getPublications().remove(publication);
+		publication.setMark(null);
 
-		return own;
+		return publication;
 	}
 
 }
