@@ -31,19 +31,19 @@ public class DatabaseConnector {
 	}
 	
 	public Mark getMarkByAppNum(String appNumber) {
-		return queryMaker.makeAppNumQuery(appNumber);
+		return queryMaker.makeMarkNumberQuery(appNumber);
 	}
 	
 	public List<Mark> getMarksByOwnerName(String firstName, String middleName, String lastName) {
-		return queryMaker.makeOwnerNameQuery(firstName, middleName, lastName);
+		return queryMaker.makeMarkOwnerNameQuery(firstName, middleName, lastName);
 	}
 	
 	public List<Mark> getMarksByAppName(String name) {
-		return queryMaker.makeAppNameQuery(name);
+		return queryMaker.makeMarkNameQuery(name);
 	}
 	
 	public List<Mark> getMarksByRegNum(int number) {
-		return queryMaker.makeAppRegNumQuery(number);
+		return queryMaker.makeMarkRegistrationNumberQuery(number);
 	}
 
 }
