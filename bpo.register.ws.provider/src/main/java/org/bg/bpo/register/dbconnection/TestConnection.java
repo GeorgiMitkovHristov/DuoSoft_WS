@@ -11,7 +11,6 @@ import org.bg.bpo.register.entities.schema_public.Agent;
 import org.bg.bpo.register.entities.schema_public.Owner;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 
-
 public class TestConnection {
 	private static final String TMVIEW_SCHEMA_PU = "bpo.register.ws.provider";
 	private static EntityManagerFactory factory;
@@ -35,5 +34,9 @@ public class TestConnection {
 		System.out.println("Owners count: " + owners.size());
 		System.out.println("Owner id: " + owners.get(0).getIdowner());
 		System.out.println("Owner tel: " + owners.get(0).getTelowner());
+
+		DatabaseConnector dbConn = DatabaseConnector.getInstance();
+		Mark m = dbConn.getAppNum("1952120001N");
+		System.out.println(m.getIdmark());
 	}
 }
