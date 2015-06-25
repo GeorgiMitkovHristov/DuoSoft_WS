@@ -48,7 +48,7 @@ public class BPORegisterSearchImpl implements BPORegisterSearch {
             bg.egov.regix.patentdepartment.TradeMarkType _returnVal1 = new bg.egov.regix.patentdepartment.TradeMarkType();
             _returnVal1.setRegistrationOfficeCode("RegistrationOfficeCode190838111");
     		DatabaseConnector dbConn = DatabaseConnector.getInstance();
-    		Mark m = dbConn.getAppNum("1952120001N");
+    		Mark m = dbConn.getMarkByAppNum("1952120001N");
             _returnVal1.setApplicationNumber(m.getIdappli());
             _returnVal1.setApplicationDate(javax.xml.datatype.DatatypeFactory.newInstance().newXMLGregorianCalendar("2015-06-23T12:52:51.013+03:00"));
             _returnVal1.setRegistrationNumber("RegistrationNumber1502295925");

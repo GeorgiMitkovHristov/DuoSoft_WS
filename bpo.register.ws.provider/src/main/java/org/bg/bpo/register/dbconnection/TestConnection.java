@@ -36,7 +36,7 @@ public class TestConnection {
 		System.out.println("Owner tel: " + owners.get(0).getTelowner());
 
 		DatabaseConnector dbConn = DatabaseConnector.getInstance();
-		Mark m = dbConn.getAppNum("1952120001N");
+		Mark m = dbConn.getMarkByAppNum("1952120001N");
 		System.out.println(m.getIdmark());
 	}
 }

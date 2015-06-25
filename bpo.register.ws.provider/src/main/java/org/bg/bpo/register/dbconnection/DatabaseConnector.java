@@ -1,5 +1,7 @@
 package org.bg.bpo.register.dbconnection;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,6 +15,7 @@ public class DatabaseConnector {
 	
 	private EntityManagerFactory factory;
 	private EntityManager entityManager;
+	private QueryMaker queryMaker;
 	
 	public static DatabaseConnector getInstance() {
 		if (instance == null) {
@@ -24,11 +27,23 @@ public class DatabaseConnector {
 	private DatabaseConnector() {
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		entityManager = factory.createEntityManager();
+		queryMaker = new QueryMaker(entityManager);
 	}
 	
-	public Mark getAppNum(String appNumber) {
-		QueryMaker queryMaker = new QueryMaker(entityManager);
-		return queryMaker.makeAppNum(appNumber);
+	public Mark getMarkByAppNum(String appNumber) {
+		return queryMaker.makeAppNumQuery(appNumber);
+	}
+	
+	public List<Mark> getMarksByOwnerName(String firstName, String middleName, String lastName) {
+		return queryMaker.makeOwnerNameQuery(firstName, middleName, lastName);
+	}
+	
+	public List<Mark> getMarksByAppName(String name) {
+		return queryMaker.makeAppNameQuery(name);
+	}
+	
+	public List<Mark> getMarksByRegNum(int number) {
+		return queryMaker.makeAppRegNumQuery(number);
 	}
 
 }
