@@ -18,8 +18,7 @@ public class Picture implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PICTURE_IDAPPLI_GENERATOR", sequenceName="ORDER_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PICTURE_IDAPPLI_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String idappli;
 
 	private Integer cdcolor;

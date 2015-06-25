@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="bpo.register.ws.provider">
-		<class>org.bg.bpo.register.entities.tmview.BackofficeTmviewStatusMap</class>
 		<class>org.bg.bpo.register.entities.tmview.Mark</class>
 		<class>org.bg.bpo.register.entities.tmview.Own</class>
 		<class>org.bg.bpo.register.entities.tmview.OwnPK</class>
@@ -14,5 +13,6 @@
 		<class>org.bg.bpo.register.entities.publicschema.Owner</class>
 		<class>org.bg.bpo.register.entities.publicschema.OwnerAddress</class>
 		<class>org.bg.bpo.register.entities.publicschema.OwnerAddressPK</class>
+		<class>org.bg.bpo.register.entities.tmview.BackofficeTmviewStatusMap</class>
 	</persistence-unit>
 </persistence>

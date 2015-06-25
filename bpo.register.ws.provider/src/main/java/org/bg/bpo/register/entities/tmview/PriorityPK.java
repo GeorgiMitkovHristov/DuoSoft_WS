@@ -1,6 +1,7 @@
 package org.bg.bpo.register.entities.tmview;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -12,6 +13,7 @@ public class PriorityPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
+	@Column(insertable=false, updatable=false)
 	private String idappli;
 
 	private Integer odprio;

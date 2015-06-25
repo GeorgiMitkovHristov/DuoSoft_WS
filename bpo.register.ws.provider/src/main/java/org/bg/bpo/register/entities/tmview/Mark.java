@@ -19,8 +19,7 @@ public class Mark implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MARK_IDAPPLI_GENERATOR", sequenceName="ORDER_SEQUENCE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MARK_IDAPPLI_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String idappli;
 
 	private String colorclaim;
@@ -75,7 +74,7 @@ public class Mark implements Serializable {
 
 	//bi-directional one-to-one association to Picture
 	@OneToOne
-	@JoinColumn(name="idappli")
+	@JoinColumn(name="idappli", insertable=false, updatable=false)
 	private Picture picture;
 
 	//bi-directional many-to-one association to Priority
