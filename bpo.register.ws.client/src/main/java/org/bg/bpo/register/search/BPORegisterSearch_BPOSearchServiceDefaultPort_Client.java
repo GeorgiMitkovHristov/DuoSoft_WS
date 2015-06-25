@@ -54,6 +54,7 @@ public final class BPORegisterSearch_BPOSearchServiceDefaultPort_Client {
         int _getMarkByRegNum_regnum = -1776674128;
         java.util.List<bg.egov.regix.patentdepartment.TradeMarkType> _getMarkByRegNum__return = port.getMarkByRegNum(_getMarkByRegNum_regnum);
         System.out.println("getMarkByRegNum.result=" + _getMarkByRegNum__return);
+        System.out.println("getMarkByRegNum.id=" + _getMarkByRegNum__return.get(0).getApplicationNumber());
 
 
         }
