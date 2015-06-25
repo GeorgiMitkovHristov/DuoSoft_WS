@@ -16,6 +16,8 @@
 		<class>org.bg.bpo.register.entities.schema_public.OwnerAddress</class>
 		<class>org.bg.bpo.register.entities.schema_public.AgentAddressPK</class>
 		<class>org.bg.bpo.register.entities.schema_public.OwnerAddressPK</class>
+		<class>org.bg.bpo.register.entities.schema_tmview.Own</class>
+		<class>org.bg.bpo.register.entities.schema_tmview.OwnPK</class>
 	
 	    <properties>
 	      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
