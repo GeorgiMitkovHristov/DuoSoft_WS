@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.bg.bpo.register.entities.schema_public.Owner;
+
 
 /**
  * The persistent class for the own database table.
@@ -24,6 +26,10 @@ public class Own implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idappli")
 	private Mark mark;
+	
+	@ManyToOne
+	@JoinColumn(name="idowner")
+	private Owner owner;
 
 	public Own() {
 	}
@@ -50,6 +56,14 @@ public class Own implements Serializable {
 
 	public void setMark(Mark mark) {
 		this.mark = mark;
+	}
+	
+	public Owner getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 
 }

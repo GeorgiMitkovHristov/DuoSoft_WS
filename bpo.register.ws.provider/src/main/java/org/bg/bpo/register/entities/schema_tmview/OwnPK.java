@@ -12,6 +12,7 @@ public class OwnPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
+	@Column(insertable=false, updatable=false)
 	private Integer idowner;
 
 	@Column(insertable=false, updatable=false)

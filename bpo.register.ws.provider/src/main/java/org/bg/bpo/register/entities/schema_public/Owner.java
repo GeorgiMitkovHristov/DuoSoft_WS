@@ -1,7 +1,11 @@
 package org.bg.bpo.register.entities.schema_public;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+
+import org.bg.bpo.register.entities.schema_tmview.Own;
 
 
 /**
@@ -44,6 +48,10 @@ public class Owner implements Serializable {
 	private String telowner;
 
 	private String titowner;
+	
+	//bi-directional many-to-one association to Own
+	@OneToMany(mappedBy="owner")
+	private List<Own> owns;
 
 	public Owner() {
 	}
@@ -166,6 +174,27 @@ public class Owner implements Serializable {
 
 	public void setTitowner(String titowner) {
 		this.titowner = titowner;
+	}
+	
+	public List<Own> getOwns() {
+		return this.owns;
+	}
+
+	public void setOwns(List<Own> owns) {
+		this.owns = owns;
+	}
+
+	public Own addOwn(Own own) {
+		getOwns().add(own);
+		own.setOwner(this);
+
+		return own;
+	}
+
+	public Own removeOwn(Own own) {
+		getOwns().remove(own);
+		own.setOwner(null);
+		return own;
 	}
 
 }
