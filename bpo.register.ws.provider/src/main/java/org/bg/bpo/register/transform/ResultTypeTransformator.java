@@ -11,8 +11,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.bg.bpo.register.dbconnection.DatabaseConnector;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
+import org.bg.bpo.register.entities.schema_tmview.Priority;
+import org.bg.bpo.register.entities.schema_tmview.Publication;
 
+import bg.egov.regix.patentdepartment.ExhibitionPriorityType;
 import bg.egov.regix.patentdepartment.MarkCurrentStatusCodeType;
+import bg.egov.regix.patentdepartment.PriorityType;
+import bg.egov.regix.patentdepartment.PublicationType;
 import bg.egov.regix.patentdepartment.TradeMarkType;
 import bg.egov.regix.patentdepartment.TradeMarkType.ApplicantDetails;
 import bg.egov.regix.patentdepartment.TradeMarkType.ExhibitionPriorityDetails;
@@ -62,19 +67,25 @@ public class ResultTypeTransformator {
 			type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
 			type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
 			type.setMarkCurrentStatusDate(convertToCalendar(mark.getDtlgstmark()));
+		
+		
+			type.setMarkImageDetails(getMarkImageDetails(mark));
+			type.setGoodsServicesDetails(getGoodsServicesDetailse(mark));
+			type.setPublicationDetails(getPublicationDetials(mark));
+			type.setApplicantDetails(getApplicantDetails(mark));
+			type.setRepresentativeDetails(getRepresentativeDetails(mark));
+			type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
+			type.setMarkDisclaimerDetails(getMarkDisclaimerDetails(mark));
+			type.setPublicationDetails(getPublicationDetails(mark));
+			
+			TradeMarkType.ExhibitionPriorityDetails eDetails = new TradeMarkType.ExhibitionPriorityDetails();
+			TradeMarkType.PriorityDetails details = new TradeMarkType.PriorityDetails();
+			setPriorityDetails(mark, details, eDetails);
+			type.setPriorityDetails(details);
+			type.setExhibitionPriorityDetails(eDetails);
+			
 		} catch (DatatypeConfigurationException exc) {
 		}
-		
-		type.setMarkImageDetails(getMarkImageDetails(mark));
-		type.setGoodsServicesDetails(getGoodsServicesDetailse(mark));
-		type.setPriorityDetails(getPriorityDetails(mark));
-		type.setExhibitionPriorityDetails(getExhibitionPrioDetails(mark));
-		type.setPublicationDetails(getPublicationDetials(mark));
-		type.setApplicantDetails(getApplicantDetails(mark));
-		type.setRepresentativeDetails(getRepresentativeDetails(mark));
-		type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
-		type.setMarkDisclaimerDetails(getMarkDisclaimerDetails(mark));
-		type.setPublicationDetails(getPublicationDetails(mark));
 		
 		return null;
 	}
@@ -84,9 +95,21 @@ public class ResultTypeTransformator {
 		return MarkCurrentStatusCodeType.fromValue(detailedCode);
 	}
 
-	private PublicationDetails getPublicationDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+	private PublicationDetails getPublicationDetails(Mark mark) throws DatatypeConfigurationException {
+		TradeMarkType.PublicationDetails details = new TradeMarkType.PublicationDetails();
+		List<PublicationType> publications = new ArrayList<PublicationType>();
+		List<Publication> markPublications = mark.getPublications();
+		for(int i = 0 ; i < markPublications.size(); i++) {
+			Publication publication = markPublications.get(i);
+			PublicationType type = new PublicationType();
+			type.setPublicationSubsection(publication.getYygazette().toString());
+			type.setPublicationIdentifier(publication.getNogazette().toString());
+			type.setPublicationSection(publication.getNosect());
+			type.setPublicationDate(convertToCalendar(publication.getDttopubli()));
+			publications.add(type);
+		}
+		details.getPublication().addAll(publications);
+		return details;
 	}
 
 	private MarkDisclaimerDetails getMarkDisclaimerDetails(Mark mark) {
@@ -114,14 +137,30 @@ public class ResultTypeTransformator {
 		return null;
 	}
 
-	private ExhibitionPriorityDetails getExhibitionPrioDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private PriorityDetails getPriorityDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+	private void setPriorityDetails(Mark mark, PriorityDetails pd, ExhibitionPriorityDetails epd) throws DatatypeConfigurationException {
+		List<PriorityType> priorities = new ArrayList<PriorityType>();
+		List<ExhibitionPriorityType> ePriorities = new ArrayList<ExhibitionPriorityType>();
+		List<Priority> markPriorities = mark.getPriorities();
+		
+		for(int i = 0 ; i < markPriorities.size(); i++) {
+			Priority priority = markPriorities.get(i);
+			if (priority.getTyprio() == 1) {
+				PriorityType type = new PriorityType();
+				type.setPriorityCountryCode(priority.getIdcountry());
+				type.setPriorityNumber(priority.getNoprio());
+				type.setPriorityDate(convertToCalendar(priority.getDtprio()));
+				priorities.add(type);
+			}
+			if (priority.getTyprio() == 2) {
+				ExhibitionPriorityType type = new ExhibitionPriorityType();
+				type.setExhibitionCountryCode(priority.getIdcountry());
+				type.setExhibitionName(priority.getRmprio());
+				type.setExhibitionDate(convertToCalendar(priority.getDtprio()));
+				ePriorities.add(type);
+			}
+		}
+		pd.getPriority().addAll(priorities);
+		epd.getExhibitionPriority().addAll(ePriorities);
 	}
 
 	private GoodsServicesDetails getGoodsServicesDetailse(Mark mark) {
