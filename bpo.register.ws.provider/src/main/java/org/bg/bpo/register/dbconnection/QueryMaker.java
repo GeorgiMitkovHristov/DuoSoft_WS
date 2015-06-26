@@ -10,36 +10,39 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
-import javax.persistence.metamodel.SingularAttribute;
 
 import org.bg.bpo.register.entities.schema_public.Owner;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 import org.bg.bpo.register.entities.schema_tmview.Own;
+import org.bg.bpo.register.exception.ResultSetTooBigException;
+import org.jdal.dao.jpa.JpaUtils;
 
 public class QueryMaker {
 	private EntityManager entityManager;
 	private CriteriaBuilder criteriaBuilder;
+	private final long resultSetSizeThreshold;
 
-	public QueryMaker(EntityManager entityManager) {
+	public QueryMaker(EntityManager entityManager, long size) {
 		this.entityManager = entityManager;
 		criteriaBuilder = entityManager.getCriteriaBuilder();
+		resultSetSizeThreshold = size;
 	}
 
 	public Mark makeMarkNumberQuery(String appNumber) {
 		return entityManager.find(Mark.class, appNumber);
 	}
 	
-	public List<Mark> makeMarkRegistrationNumberQuery(int number) {
+	public List<Mark> makeMarkRegistrationNumberQuery(int number) throws ResultSetTooBigException {
 		CriteriaQuery<Mark> criteria = criteriaBuilder.createQuery(Mark.class);
 		Metamodel model = entityManager.getMetamodel();
 		EntityType<Mark> Mark_ = model.entity(Mark.class);
 		Root<Mark> markRoot = criteria.from(Mark.class);
 		criteria.select(markRoot);
 		criteria.where(criteriaBuilder.equal(markRoot.get(Mark_.getDeclaredSingularAttribute("idmark")), number));
-		return entityManager.createQuery(criteria).getResultList();
+		return executeQuery(criteria);
 	}
 	
-	public List<Mark> makeMarkOwnerNameQuery(String firstName, String middleName, String lastName) {
+	public List<Mark> makeMarkOwnerNameQuery(String firstName, String middleName, String lastName) throws ResultSetTooBigException {
 		CriteriaQuery<Mark> criteria = criteriaBuilder.createQuery(Mark.class);
 		Root<Mark> markRoot = criteria.from(Mark.class);
 		Metamodel model = entityManager.getMetamodel();
@@ -79,17 +82,17 @@ public class QueryMaker {
 				break;
 		}
 		
-		return entityManager.createQuery(criteria).getResultList();
+		return executeQuery(criteria);
 	}
 	
-	public List<Mark> makeMarkNameQuery(String name) {
+	public List<Mark> makeMarkNameQuery(String name) throws ResultSetTooBigException {
 		CriteriaQuery<Mark> criteria = criteriaBuilder.createQuery(Mark.class);
 		Metamodel model = entityManager.getMetamodel();
 		EntityType<Mark> Mark_ = model.entity(Mark.class);
 		Root<Mark> markRoot = criteria.from(Mark.class);
 		criteria.select(markRoot);
 		criteria.where(criteriaBuilder.equal(markRoot.get(Mark_.getDeclaredSingularAttribute("deno")), name));
-		return entityManager.createQuery(criteria).getResultList();
+		return executeQuery(criteria);
 	}
 	
 	private int resolvePredicate(String firstName, String middleName, String lastName) {
@@ -104,5 +107,17 @@ public class QueryMaker {
 			mask |= 1;
 		}
 		return mask;
+	}
+	
+	private List<Mark> executeQuery(CriteriaQuery<Mark> query) throws ResultSetTooBigException {
+		final long count = determineResultSize(query);
+		if (count >= resultSetSizeThreshold) {
+			throw new ResultSetTooBigException();
+		}
+		return entityManager.createQuery(query).getResultList();
+	}
+
+	private long determineResultSize(CriteriaQuery<Mark> query) {
+		return JpaUtils.count(entityManager, query);
 	}
 }

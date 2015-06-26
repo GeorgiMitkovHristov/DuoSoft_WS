@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.bg.bpo.register.entities.schema_tmview.Mark;
+import org.bg.bpo.register.exception.ResultSetTooBigException;
 
 public class DatabaseConnector {
 	private static DatabaseConnector instance = null;
@@ -27,22 +28,22 @@ public class DatabaseConnector {
 	private DatabaseConnector() {
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		entityManager = factory.createEntityManager();
-		queryMaker = new QueryMaker(entityManager);
+		queryMaker = new QueryMaker(entityManager, 500);
 	}
 	
 	public Mark getMarkByAppNum(String appNumber) {
 		return queryMaker.makeMarkNumberQuery(appNumber);
 	}
 	
-	public List<Mark> getMarksByOwnerName(String firstName, String middleName, String lastName) {
+	public List<Mark> getMarksByOwnerName(String firstName, String middleName, String lastName) throws ResultSetTooBigException {
 		return queryMaker.makeMarkOwnerNameQuery(firstName, middleName, lastName);
 	}
 	
-	public List<Mark> getMarksByAppName(String name) {
+	public List<Mark> getMarksByAppName(String name) throws ResultSetTooBigException {
 		return queryMaker.makeMarkNameQuery(name);
 	}
 	
-	public List<Mark> getMarksByRegNum(int number) {
+	public List<Mark> getMarksByRegNum(int number) throws ResultSetTooBigException {
 		return queryMaker.makeMarkRegistrationNumberQuery(number);
 	}
 

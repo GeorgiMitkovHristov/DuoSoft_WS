@@ -42,8 +42,8 @@ public class TestConnection {
 		Mark m = dbConn.getMarkByAppNum("1952120001N");
 		System.out.println(m.getOwns().get(0).getId().getIdowner());
 		
-		Vector<Mark> list = (Vector<Mark>) dbConn.getMarksByAppName("NIMONIC");
-		System.out.println(list);
+//		Vector<Mark> list = (Vector<Mark>) dbConn.getMarksByAppName("NIMONIC");
+//		System.out.println(list);
 		
 //		List<Mark> list2 = dbConn.getMarksByOwnerName("", "", "INCO ALLOIS LIMITED");
 //		System.out.println(list2);
