@@ -1,12 +1,19 @@
 package org.bg.bpo.register.transform;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.bg.bpo.register.dbconnection.DatabaseConnector;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 
 import bg.egov.regix.patentdepartment.TradeMarkType;
+import bg.egov.regix.patentdepartment.WordMarkSpecificationType;
 
 public class ResultTypeTransformator {
 	DatabaseConnector connector;
@@ -28,19 +35,24 @@ public class ResultTypeTransformator {
 	private TradeMarkType transformMark(Mark mark) {
 		TradeMarkType type = new TradeMarkType();
 		
-		type.setApplicantSideCaseKey(null);
-		type.setApplicationDate(null);
-		type.setApplicationLanguageCode(null);
-		type.setApplicationNumber(null);
-		type.setApplicationReference(null);
-		type.setExpiryDate(null);
-		type.setKindMark(null);
+		type.setApplicantSideCaseKey(mark.getKdmark().toString());
+		type.setApplicationLanguageCode("BG");
+		type.setApplicationNumber(mark.getIdappli());
+		type.setApplicationReference(mark.getLgstmark().toString());
+		type.setKindMark(setKindMark(mark.getKdmark()));
+		type.setMarkFeature(setMarkFeature(mark.getNtmark()));
+		type.setRegistrationNumber(mark.getIdmark());
+		type.setRegistrationOfficeCode("BG");
+		type.setWordMarkSpecification(setWordMarkSpecification(mark));
+		
 		type.setMarkCurrentStatusCode(null);
-		type.setMarkFeature(null);
-		type.setRegistrationDate(null);
-		type.setRegistrationNumber(null);
-		type.setRegistrationOfficeCode(null);
-		type.setWordMarkSpecification(null);
+		
+		try {
+			type.setApplicationDate(convertToCalendar(mark.getDtappli()));
+			type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
+			type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
+		} catch (DatatypeConfigurationException exc) {
+		}
 		
 		type.setMarkCurrentStatusDate(null);
 		type.setMarkImageDetails(null);
@@ -56,6 +68,28 @@ public class ResultTypeTransformator {
 		type.setPublicationDetails(null);
 		
 		return null;
+	}
+
+	private WordMarkSpecificationType setWordMarkSpecification(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String setKindMark(Integer kdmark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String setMarkFeature(Integer ntmark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private XMLGregorianCalendar convertToCalendar(Date date) throws DatatypeConfigurationException {
+		GregorianCalendar c = new GregorianCalendar();
+		c.setTime(date);
+		XMLGregorianCalendar calendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+		return calendar;
 	}
 
 }
