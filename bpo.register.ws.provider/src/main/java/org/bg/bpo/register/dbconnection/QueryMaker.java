@@ -12,6 +12,7 @@ import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
 import org.bg.bpo.register.entities.schema_public.Owner;
+import org.bg.bpo.register.entities.schema_tmview.BackofficeTmviewStatusMap;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 import org.bg.bpo.register.entities.schema_tmview.Own;
 import org.bg.bpo.register.exception.ResultSetTooBigException;
@@ -119,5 +120,15 @@ public class QueryMaker {
 
 	private long determineResultSize(CriteriaQuery<Mark> query) {
 		return JpaUtils.count(entityManager, query);
+	}
+
+	public String makeMarkCurrentStatusCodeQuery(Integer lgstmark) {
+		CriteriaQuery<BackofficeTmviewStatusMap> criteria = criteriaBuilder.createQuery(BackofficeTmviewStatusMap.class);
+		Metamodel model = entityManager.getMetamodel();
+		EntityType<BackofficeTmviewStatusMap> Map_ = model.entity(BackofficeTmviewStatusMap.class);
+		Root<BackofficeTmviewStatusMap> mapRoot = criteria.from(BackofficeTmviewStatusMap.class);
+		criteria.select(mapRoot);
+		criteria.where(criteriaBuilder.equal(mapRoot.get(Map_.getDeclaredSingularAttribute("backoffice_status_id")), lgstmark));
+		return entityManager.createQuery(criteria).getResultList().get(0).getTmviewDetailedCode();
 	}
 }

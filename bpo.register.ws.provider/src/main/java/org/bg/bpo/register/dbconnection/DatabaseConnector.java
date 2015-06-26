@@ -47,4 +47,8 @@ public class DatabaseConnector {
 		return queryMaker.makeMarkRegistrationNumberQuery(number);
 	}
 
+	public String getMarkCurrentStatusCodeForMark(Integer lgstmark) {
+		return queryMaker.makeMarkCurrentStatusCodeQuery(lgstmark);
+	}
+
 }

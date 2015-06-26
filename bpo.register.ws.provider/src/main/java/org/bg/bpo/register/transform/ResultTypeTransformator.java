@@ -12,7 +12,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.bg.bpo.register.dbconnection.DatabaseConnector;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 
+import bg.egov.regix.patentdepartment.MarkCurrentStatusCodeType;
 import bg.egov.regix.patentdepartment.TradeMarkType;
+import bg.egov.regix.patentdepartment.TradeMarkType.ApplicantDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.ExhibitionPriorityDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.GoodsServicesDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.MarkDescriptionDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.MarkDisclaimerDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.MarkImageDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.PriorityDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.PublicationDetails;
+import bg.egov.regix.patentdepartment.TradeMarkType.RepresentativeDetails;
 import bg.egov.regix.patentdepartment.WordMarkSpecificationType;
 
 public class ResultTypeTransformator {
@@ -45,28 +55,82 @@ public class ResultTypeTransformator {
 		type.setRegistrationOfficeCode("BG");
 		type.setWordMarkSpecification(setWordMarkSpecification(mark));
 		
-		type.setMarkCurrentStatusCode(null);
+		type.setMarkCurrentStatusCode(getMarkCurrentStatusCode(mark));
 		
 		try {
 			type.setApplicationDate(convertToCalendar(mark.getDtappli()));
 			type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
 			type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
+			type.setMarkCurrentStatusDate(convertToCalendar(mark.getDtlgstmark()));
 		} catch (DatatypeConfigurationException exc) {
 		}
 		
-		type.setMarkCurrentStatusDate(null);
-		type.setMarkImageDetails(null);
-		type.setGoodsServicesDetails(null);
-		type.setPriorityDetails(null);
-		type.setExhibitionPriorityDetails(null);
-		type.setPublicationDetails(null);
-		type.setApplicantDetails(null);
-		type.setRepresentativeDetails(null);
-		type.setExhibitionPriorityDetails(null);
-		type.setMarkDescriptionDetails(null);
-		type.setMarkDisclaimerDetails(null);
-		type.setPublicationDetails(null);
+		type.setMarkImageDetails(getMarkImageDetails(mark));
+		type.setGoodsServicesDetails(getGoodsServicesDetailse(mark));
+		type.setPriorityDetails(getPriorityDetails(mark));
+		type.setExhibitionPriorityDetails(getExhibitionPrioDetails(mark));
+		type.setPublicationDetails(getPublicationDetials(mark));
+		type.setApplicantDetails(getApplicantDetails(mark));
+		type.setRepresentativeDetails(getRepresentativeDetails(mark));
+		type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
+		type.setMarkDisclaimerDetails(getMarkDisclaimerDetails(mark));
+		type.setPublicationDetails(getPublicationDetails(mark));
 		
+		return null;
+	}
+
+	private MarkCurrentStatusCodeType getMarkCurrentStatusCode(Mark mark) {
+		String detailedCode = connector.getMarkCurrentStatusCodeForMark(mark.getLgstmark());
+		return MarkCurrentStatusCodeType.fromValue(detailedCode);
+	}
+
+	private PublicationDetails getPublicationDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private MarkDisclaimerDetails getMarkDisclaimerDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private MarkDescriptionDetails getMarkDescriptionDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private RepresentativeDetails getRepresentativeDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private ApplicantDetails getApplicantDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private PublicationDetails getPublicationDetials(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private ExhibitionPriorityDetails getExhibitionPrioDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private PriorityDetails getPriorityDetails(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private GoodsServicesDetails getGoodsServicesDetailse(Mark mark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private MarkImageDetails getMarkImageDetails(Mark mark) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -76,13 +140,33 @@ public class ResultTypeTransformator {
 	}
 
 	private String setKindMark(Integer kdmark) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (kdmark) {
+			case 1:
+				return "Individual";
+			case 2:
+				return "Collective";
+			case 3:
+				return "Certificate";
+			case 4:
+				return "Individual";
+		}
+		return "Not set";
 	}
 
 	private String setMarkFeature(Integer ntmark) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (ntmark) {
+		case 1:
+			return "Word";
+		case 2:
+			return "Figurative";
+		case 3:
+			return "Combined";
+		case 4:
+			return "3-D";
+		case 5:
+			return "Sound";
+	}
+	return "Other";
 	}
 	
 	private XMLGregorianCalendar convertToCalendar(Date date) throws DatatypeConfigurationException {
