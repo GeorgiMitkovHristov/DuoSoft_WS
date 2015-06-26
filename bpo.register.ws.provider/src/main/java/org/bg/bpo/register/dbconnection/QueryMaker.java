@@ -140,7 +140,7 @@ public class QueryMaker {
 		EntityType<BackofficeTmviewStatusMap> Map_ = model.entity(BackofficeTmviewStatusMap.class);
 		Root<BackofficeTmviewStatusMap> mapRoot = criteria.from(BackofficeTmviewStatusMap.class);
 		criteria.select(mapRoot);
-		criteria.where(criteriaBuilder.equal(mapRoot.get(Map_.getDeclaredSingularAttribute("backoffice_status_id")), lgstmark));
+		criteria.where(criteriaBuilder.equal(mapRoot.get(Map_.getDeclaredSingularAttribute("backofficeStatusId")), lgstmark));
 		return entityManager.createQuery(criteria).getResultList().get(0).getTmviewDetailedCode();
 	}
 }
