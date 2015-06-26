@@ -76,7 +76,7 @@ public class ResultTypeTransformator {
 		
 		
 			type.setMarkImageDetails(getMarkImageDetails(mark));
-			type.setGoodsServicesDetails(getGoodsServicesDetailse(mark));
+			type.setGoodsServicesDetails(getGoodsServicesDetails(mark));
 			type.setApplicantDetails(getApplicantDetails(mark));
 			type.setRepresentativeDetails(getRepresentativeDetails(mark));
 			type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
@@ -165,7 +165,7 @@ public class ResultTypeTransformator {
 		epd.getExhibitionPriority().addAll(ePriorities);
 	}
 
-	private GoodsServicesDetails getGoodsServicesDetailse(Mark mark) {
+	private GoodsServicesDetails getGoodsServicesDetails(Mark mark) {
 		TradeMarkType.GoodsServicesDetails details = new TradeMarkType.GoodsServicesDetails();
 		List<GoodsServicesType> services = new ArrayList<GoodsServicesType>();
 		List<Classmark> classmarks = mark.getClassmarks();
