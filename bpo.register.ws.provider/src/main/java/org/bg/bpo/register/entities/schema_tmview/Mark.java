@@ -373,7 +373,6 @@ public class Mark implements Serializable {
 	public Own removeOwn(Own own) {
 		getOwns().remove(own);
 		own.setMark(null);
-
 		return own;
 	}
 

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
@@ -50,8 +51,8 @@ public class QueryMaker {
 		Metamodel model = entityManager.getMetamodel();
 		EntityType<Owner> Owner_ = model.entity(Owner.class);
 		
-		Join<Mark, Own> own = markRoot.join("idappli");
-		Join<Own, Owner> owner = own.join("idowner");
+		Join<Mark, Own> own = markRoot.join("owns", JoinType.INNER);
+		Join<Own, Owner> owner = own.join("owner", JoinType.INNER);
 		
 		Predicate lastNamePredicate = criteriaBuilder.equal(owner.get(Owner_.getDeclaredSingularAttribute("nmowner")), lastName);
 		Predicate middleNamePredicate = criteriaBuilder.equal(owner.get(Owner_.getDeclaredSingularAttribute("midnowner")), middleName);
