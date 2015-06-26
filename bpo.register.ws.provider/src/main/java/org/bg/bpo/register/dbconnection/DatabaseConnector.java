@@ -50,5 +50,9 @@ public class DatabaseConnector {
 	public String getMarkCurrentStatusCodeForMark(Integer lgstmark) {
 		return queryMaker.makeMarkCurrentStatusCodeQuery(lgstmark);
 	}
+	
+	public String getImageCategory(String idappli) {
+		return queryMaker.makeMarkImageCategoryQuery(idappli);
+	}
 
 }

@@ -10,14 +10,20 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.bg.bpo.register.dbconnection.DatabaseConnector;
+import org.bg.bpo.register.entities.schema_tmview.Classmark;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 import org.bg.bpo.register.entities.schema_tmview.Priority;
 import org.bg.bpo.register.entities.schema_tmview.Publication;
 
 import bg.egov.regix.patentdepartment.ExhibitionPriorityType;
+import bg.egov.regix.patentdepartment.GoodsServicesType;
 import bg.egov.regix.patentdepartment.MarkCurrentStatusCodeType;
+import bg.egov.regix.patentdepartment.MarkImageCategoryType;
+import bg.egov.regix.patentdepartment.MarkImageCategoryType.CategoryCodeDetails;
+import bg.egov.regix.patentdepartment.MarkImageType;
 import bg.egov.regix.patentdepartment.PriorityType;
 import bg.egov.regix.patentdepartment.PublicationType;
+import bg.egov.regix.patentdepartment.TextType;
 import bg.egov.regix.patentdepartment.TradeMarkType;
 import bg.egov.regix.patentdepartment.TradeMarkType.ApplicantDetails;
 import bg.egov.regix.patentdepartment.TradeMarkType.ExhibitionPriorityDetails;
@@ -71,7 +77,6 @@ public class ResultTypeTransformator {
 		
 			type.setMarkImageDetails(getMarkImageDetails(mark));
 			type.setGoodsServicesDetails(getGoodsServicesDetailse(mark));
-			type.setPublicationDetails(getPublicationDetials(mark));
 			type.setApplicantDetails(getApplicantDetails(mark));
 			type.setRepresentativeDetails(getRepresentativeDetails(mark));
 			type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
@@ -113,13 +118,15 @@ public class ResultTypeTransformator {
 	}
 
 	private MarkDisclaimerDetails getMarkDisclaimerDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+		TradeMarkType.MarkDisclaimerDetails details = new TradeMarkType.MarkDisclaimerDetails();
+		details.getMarkDisclaimer().add(mark.getDisclaimer());
+		return details;
 	}
 
 	private MarkDescriptionDetails getMarkDescriptionDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+		TradeMarkType.MarkDescriptionDetails details = new TradeMarkType.MarkDescriptionDetails();
+		details.getMarkDescription().add(mark.getDescmark());
+		return details;
 	}
 
 	private RepresentativeDetails getRepresentativeDetails(Mark mark) {
@@ -128,11 +135,6 @@ public class ResultTypeTransformator {
 	}
 
 	private ApplicantDetails getApplicantDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private PublicationDetails getPublicationDetials(Mark mark) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -164,18 +166,47 @@ public class ResultTypeTransformator {
 	}
 
 	private GoodsServicesDetails getGoodsServicesDetailse(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+		TradeMarkType.GoodsServicesDetails details = new TradeMarkType.GoodsServicesDetails();
+		List<GoodsServicesType> services = new ArrayList<GoodsServicesType>();
+		List<Classmark> classmarks = mark.getClassmarks();
+//		for (int i = 0; i < classmarks.size(); i++) {
+//			
+//		}
+//		details.setGoodsServices(value);
+		return details;
 	}
 
 	private MarkImageDetails getMarkImageDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+		TradeMarkType.MarkImageDetails details = new TradeMarkType.MarkImageDetails();
+		MarkImageCategoryType imageCategory = new MarkImageCategoryType();
+		CategoryCodeDetails codeDetails = new CategoryCodeDetails();
+		codeDetails.getCategoryCode().add(connector.getImageCategory(mark.getIdappli()));
+		imageCategory.setCategoryCodeDetails(codeDetails);
+		TextType color = new TextType();
+		color.setValue(mark.getColorclaim());
+		
+		MarkImageType markImage = new MarkImageType();
+		markImage.setMarkImageBinary(mark.getPicture().getPicture());
+		markImage.setMarkImageFileFormat(mark.getPicture().getFormatfile());
+		markImage.getMarkImageColourClaimedText().add(color);
+		markImage.setMarkImageCategory(imageCategory);
+		details.setMarkImage(markImage);
+		return details;
 	}
 
 	private WordMarkSpecificationType setWordMarkSpecification(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+		WordMarkSpecificationType type = new WordMarkSpecificationType();
+		TextType textType = new TextType();
+		TextType textTypeTrans = new TextType();
+		TextType textTypeTranslit = new TextType();
+		
+		textType.setValue(mark.getDeno());
+		textTypeTrans.setValue(mark.getTranslat());
+		textTypeTranslit.setValue(mark.getTranslit());
+		
+		type.setMarkVerbalElementText(textType);
+		type.getMarkTranslation().add(textTypeTrans);
+		return type;
 	}
 
 	private String setKindMark(Integer kdmark) {

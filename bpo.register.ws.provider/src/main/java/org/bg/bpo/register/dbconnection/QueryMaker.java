@@ -13,6 +13,7 @@ import javax.persistence.metamodel.Metamodel;
 
 import org.bg.bpo.register.entities.schema_public.Owner;
 import org.bg.bpo.register.entities.schema_tmview.BackofficeTmviewStatusMap;
+import org.bg.bpo.register.entities.schema_tmview.Categpict;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
 import org.bg.bpo.register.entities.schema_tmview.Own;
 import org.bg.bpo.register.exception.ResultSetTooBigException;
@@ -122,6 +123,16 @@ public class QueryMaker {
 		return JpaUtils.count(entityManager, query);
 	}
 
+	public String makeMarkImageCategoryQuery(String idappli) {
+		CriteriaQuery<Categpict> criteria = criteriaBuilder.createQuery(Categpict.class);
+		Metamodel model = entityManager.getMetamodel();
+		EntityType<Categpict> Cat_ = model.entity(Categpict.class);
+		Root<Categpict> catRoot = criteria.from(Categpict.class);
+		criteria.select(catRoot);
+		criteria.where(criteriaBuilder.equal(catRoot.get(Cat_.getDeclaredSingularAttribute("idappli")), idappli));
+		return entityManager.createQuery(criteria).getResultList().get(0).getId().getIdcategory();
+	}
+	
 	public String makeMarkCurrentStatusCodeQuery(Integer lgstmark) {
 		CriteriaQuery<BackofficeTmviewStatusMap> criteria = criteriaBuilder.createQuery(BackofficeTmviewStatusMap.class);
 		Metamodel model = entityManager.getMetamodel();
