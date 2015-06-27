@@ -12,6 +12,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.bg.bpo.register.dbconnection.DatabaseConnector;
 import org.bg.bpo.register.entities.schema_tmview.Classmark;
 import org.bg.bpo.register.entities.schema_tmview.Mark;
+import org.bg.bpo.register.entities.schema_tmview.Picture;
 import org.bg.bpo.register.entities.schema_tmview.Priority;
 import org.bg.bpo.register.entities.schema_tmview.Publication;
 
@@ -92,7 +93,7 @@ public class ResultTypeTransformator {
 		} catch (DatatypeConfigurationException exc) {
 		}
 		
-		return null;
+		return type;
 	}
 
 	private MarkCurrentStatusCodeType getMarkCurrentStatusCode(Mark mark) {
@@ -180,14 +181,22 @@ public class ResultTypeTransformator {
 		TradeMarkType.MarkImageDetails details = new TradeMarkType.MarkImageDetails();
 		MarkImageCategoryType imageCategory = new MarkImageCategoryType();
 		CategoryCodeDetails codeDetails = new CategoryCodeDetails();
-		codeDetails.getCategoryCode().add(connector.getImageCategory(mark.getIdappli()));
+		String imageCategoryValue = connector.getImageCategory(mark.getIdappli());
+		if(imageCategoryValue != null) {
+			codeDetails.getCategoryCode().add(imageCategoryValue);
+		}
+		
 		imageCategory.setCategoryCodeDetails(codeDetails);
 		TextType color = new TextType();
 		color.setValue(mark.getColorclaim());
 		
 		MarkImageType markImage = new MarkImageType();
-		markImage.setMarkImageBinary(mark.getPicture().getPicture());
-		markImage.setMarkImageFileFormat(mark.getPicture().getFormatfile());
+		final Picture markPicture = mark.getPicture();
+		if(markPicture != null) {
+			markImage.setMarkImageBinary(markPicture.getPicture());
+			markImage.setMarkImageFileFormat(markPicture.getFormatfile());
+		}
+		
 		markImage.getMarkImageColourClaimedText().add(color);
 		markImage.setMarkImageCategory(imageCategory);
 		details.setMarkImage(markImage);
