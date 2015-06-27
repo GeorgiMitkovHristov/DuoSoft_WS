@@ -127,12 +127,11 @@ public class DatabaseQueries {
 
 	public String makeMarkImageCategoryQuery(String idappli) {
 		CriteriaQuery<Categpict> criteria = criteriaBuilder.createQuery(Categpict.class);
-		Metamodel model = entityManager.getMetamodel();
-		EntityType<Categpict> Cat_ = model.entity(Categpict.class);
 		Root<Categpict> catRoot = criteria.from(Categpict.class);
 		criteria.select(catRoot);
-		criteria.where(criteriaBuilder.equal(catRoot.get(Cat_.getDeclaredSingularAttribute("idappli")), idappli));
-		return entityManager.createQuery(criteria).getResultList().get(0).getId().getIdcategory();
+		criteria.where(criteriaBuilder.equal(catRoot.get("id").get("idappli"), idappli));  
+		List<Categpict> resultList = entityManager.createQuery(criteria).getResultList();  
+		return resultList.isEmpty() ? null : resultList.get(0).getId().getIdcategory();  
 	}
 	
 	public String makeMarkCurrentStatusCodeQuery(Integer lgstmark) {

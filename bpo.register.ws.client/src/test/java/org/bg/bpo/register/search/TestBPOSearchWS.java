@@ -30,7 +30,7 @@ public class TestBPOSearchWS {
 		assertEquals("Unexpected size of found marks !", 1, foundMarks.size());
 		assertEquals("Unexpected application numbber found !", "1952120001N", foundMarks.get(0).getApplicationNumber());
 		assertEquals("Unexpected registration number found !", "00000556", foundMarks.get(0).getRegistrationNumber());
-		assertEquals("Unexpected description details found !", "NIMONIC", foundMarks.get(0).getMarkDescriptionDetails());
+		assertEquals("Unexpected description details found !", "NIMONIC", foundMarks.get(0).getWordMarkSpecification().getMarkVerbalElementText().getValue());
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class TestBPOSearchWS {
 		assertEquals("Unexpected size of found marks !", 1, foundMarks.size());
 		assertEquals("Unexpected application numbber found !", "1952120001N", foundMarks.get(0).getApplicationNumber());
 		assertEquals("Unexpected registration number found !", "00000556", foundMarks.get(0).getRegistrationNumber());
-		assertEquals("Unexpected description details found !", "NIMONIC", foundMarks.get(0).getMarkDescriptionDetails());
+		assertEquals("Unexpected description details found !", "NIMONIC", foundMarks.get(0).getWordMarkSpecification().getMarkVerbalElementText().getValue());
 	}
 
 	@Test
@@ -60,9 +60,9 @@ public class TestBPOSearchWS {
 		assertEquals("Unexpected size of found marks !", 2, foundMarks.size());
 		assertEquals("Unexpected application numbber found !", "1952120001N", foundMarks.get(0).getApplicationNumber());
 		assertEquals("Unexpected registration number found !", "00000556", foundMarks.get(0).getRegistrationNumber());
-		assertEquals("Unexpected description details found !", "NIMONIC", foundMarks.get(0).getMarkDescriptionDetails());
+		assertEquals("Unexpected description details found !", "NIMONIC", foundMarks.get(0).getWordMarkSpecification().getMarkVerbalElementText().getValue());
 		assertEquals("Unexpected application numbber found !", "1989008065N", foundMarks.get(1).getApplicationNumber());
 		assertEquals("Unexpected registration number found !", "00000556", foundMarks.get(1).getRegistrationNumber());
-		assertEquals("Unexpected description details found !", "BC BULCON", foundMarks.get(1).getMarkDescriptionDetails());
+		assertEquals("Unexpected description details found !", "BC BULCON", foundMarks.get(1).getWordMarkSpecification().getMarkVerbalElementText().getValue());
 	}
 }
