@@ -1,26 +1,26 @@
-package org.bg.bpo.register.entities.schema_public;
+package org.bg.bpo.register.db.entities.schema.publik;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
 
 /**
- * The persistent class for the agent_addresses database table.
+ * The persistent class for the owner_addresses database table.
  * 
  */
 @Entity
-@Table(name="agent_addresses", schema="public")
-@NamedQuery(name="AgentAddress.findAll", query="SELECT a FROM AgentAddress a")
-public class AgentAddress implements Serializable {
+@Table(name="owner_addresses", schema="public")
+@NamedQuery(name="OwnerAddress.findAll", query="SELECT o FROM OwnerAddress o")
+public class OwnerAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private AgentAddressPK id;
+	private OwnerAddressPK id;
 
-	private String adagent;
+	private String adowner;
 
-	@Column(name="custom_idagent")
-	private Integer customIdagent;
+	@Column(name="custom_idowner")
+	private Integer customIdowner;
 
 	private String idcountry;
 
@@ -30,31 +30,31 @@ public class AgentAddress implements Serializable {
 
 	private String nmtown;
 
-	public AgentAddress() {
+	public OwnerAddress() {
 	}
 
-	public AgentAddressPK getId() {
+	public OwnerAddressPK getId() {
 		return this.id;
 	}
 
-	public void setId(AgentAddressPK id) {
+	public void setId(OwnerAddressPK id) {
 		this.id = id;
 	}
 
-	public String getAdagent() {
-		return this.adagent;
+	public String getAdowner() {
+		return this.adowner;
 	}
 
-	public void setAdagent(String adagent) {
-		this.adagent = adagent;
+	public void setAdowner(String adowner) {
+		this.adowner = adowner;
 	}
 
-	public Integer getCustomIdagent() {
-		return this.customIdagent;
+	public Integer getCustomIdowner() {
+		return this.customIdowner;
 	}
 
-	public void setCustomIdagent(Integer customIdagent) {
-		this.customIdagent = customIdagent;
+	public void setCustomIdowner(Integer customIdowner) {
+		this.customIdowner = customIdowner;
 	}
 
 	public String getIdcountry() {

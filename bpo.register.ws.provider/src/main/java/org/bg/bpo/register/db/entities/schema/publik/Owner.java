@@ -1,11 +1,11 @@
-package org.bg.bpo.register.entities.schema_public;
+package org.bg.bpo.register.db.entities.schema.publik;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
-import org.bg.bpo.register.entities.schema_tmview.Own;
+import org.bg.bpo.register.db.entities.schema.tmview.Own;
 
 
 /**

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.bg.bpo.register.dbconnection.DatabaseConnector;
-import org.bg.bpo.register.entities.schema_tmview.Mark;
+import org.bg.bpo.register.db.connectivity.DatabaseConnector;
+import org.bg.bpo.register.db.entities.schema.tmview.Mark;
 import org.bg.bpo.register.transform.ResultTypeTransformator;
 
 /**

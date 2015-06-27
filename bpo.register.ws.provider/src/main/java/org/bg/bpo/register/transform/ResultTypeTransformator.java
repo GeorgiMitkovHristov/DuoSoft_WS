@@ -9,11 +9,11 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.bg.bpo.register.dbconnection.DatabaseConnector;
-import org.bg.bpo.register.entities.schema_tmview.Classmark;
-import org.bg.bpo.register.entities.schema_tmview.Mark;
-import org.bg.bpo.register.entities.schema_tmview.Priority;
-import org.bg.bpo.register.entities.schema_tmview.Publication;
+import org.bg.bpo.register.db.connectivity.DatabaseConnector;
+import org.bg.bpo.register.db.entities.schema.tmview.Classmark;
+import org.bg.bpo.register.db.entities.schema.tmview.Mark;
+import org.bg.bpo.register.db.entities.schema.tmview.Priority;
+import org.bg.bpo.register.db.entities.schema.tmview.Publication;
 
 import bg.egov.regix.patentdepartment.ExhibitionPriorityType;
 import bg.egov.regix.patentdepartment.GoodsServicesType;

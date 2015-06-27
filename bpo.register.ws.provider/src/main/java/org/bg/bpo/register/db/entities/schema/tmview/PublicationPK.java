@@ -1,4 +1,4 @@
-package org.bg.bpo.register.entities.schema_tmview;
+package org.bg.bpo.register.db.entities.schema.tmview;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -8,48 +8,49 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
-public class ClassmarkPK implements Serializable {
+public class PublicationPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	@Column(insertable=false, updatable=false)
 	private String idappli;
 
-	private Integer idclass;
+	private Integer odhisto;
 
-	public ClassmarkPK() {
+	public PublicationPK() {
 	}
+	
 	public String getIdappli() {
 		return this.idappli;
 	}
 	public void setIdappli(String idappli) {
 		this.idappli = idappli;
 	}
-	public Integer getIdclass() {
-		return this.idclass;
+	public Integer getOdhisto() {
+		return this.odhisto;
 	}
-	public void setIdclass(Integer idclass) {
-		this.idclass = idclass;
+	public void setOdhisto(Integer odhisto) {
+		this.odhisto = odhisto;
 	}
 
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof ClassmarkPK)) {
+		if (!(other instanceof PublicationPK)) {
 			return false;
 		}
-		ClassmarkPK castOther = (ClassmarkPK)other;
+		PublicationPK castOther = (PublicationPK)other;
 		return 
 			this.idappli.equals(castOther.idappli)
-			&& this.idclass.equals(castOther.idclass);
+			&& this.odhisto.equals(castOther.odhisto);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.idappli.hashCode();
-		hash = hash * prime + this.idclass.hashCode();
+		hash = hash * prime + this.odhisto.hashCode();
 		
 		return hash;
 	}

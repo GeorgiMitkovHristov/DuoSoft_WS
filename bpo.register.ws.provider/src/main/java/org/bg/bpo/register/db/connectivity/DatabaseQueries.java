@@ -1,4 +1,4 @@
-package org.bg.bpo.register.dbconnection;
+package org.bg.bpo.register.db.connectivity;
 
 import java.util.List;
 
@@ -12,20 +12,20 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
-import org.bg.bpo.register.entities.schema_public.Owner;
-import org.bg.bpo.register.entities.schema_tmview.BackofficeTmviewStatusMap;
-import org.bg.bpo.register.entities.schema_tmview.Categpict;
-import org.bg.bpo.register.entities.schema_tmview.Mark;
-import org.bg.bpo.register.entities.schema_tmview.Own;
+import org.bg.bpo.register.db.entities.schema.publik.Owner;
+import org.bg.bpo.register.db.entities.schema.tmview.BackofficeTmviewStatusMap;
+import org.bg.bpo.register.db.entities.schema.tmview.Categpict;
+import org.bg.bpo.register.db.entities.schema.tmview.Mark;
+import org.bg.bpo.register.db.entities.schema.tmview.Own;
 import org.bg.bpo.register.exception.ResultSetTooBigException;
 import org.jdal.dao.jpa.JpaUtils;
 
-public class QueryMaker {
+public class DatabaseQueries {
 	private EntityManager entityManager;
 	private CriteriaBuilder criteriaBuilder;
 	private final long resultSetSizeThreshold;
 
-	public QueryMaker(EntityManager entityManager, long size) {
+	public DatabaseQueries(EntityManager entityManager, long size) {
 		this.entityManager = entityManager;
 		criteriaBuilder = entityManager.getCriteriaBuilder();
 		resultSetSizeThreshold = size;
@@ -41,7 +41,8 @@ public class QueryMaker {
 		EntityType<Mark> Mark_ = model.entity(Mark.class);
 		Root<Mark> markRoot = criteria.from(Mark.class);
 		criteria.select(markRoot);
-		criteria.where(criteriaBuilder.equal(markRoot.get(Mark_.getDeclaredSingularAttribute("idmark")), number));
+		String regNum = String.format("%08d",number);
+		criteria.where(criteriaBuilder.equal(markRoot.get(Mark_.getDeclaredSingularAttribute("idmark")), regNum));
 		return executeQuery(criteria);
 	}
 	
