@@ -125,13 +125,13 @@ public class DatabaseQueries {
 		return JpaUtils.count(entityManager, query);
 	}
 
-	public String makeMarkImageCategoryQuery(String idappli) {
+	public List<Categpict> makeMarkImageCategoryQuery(String idappli) {
 		CriteriaQuery<Categpict> criteria = criteriaBuilder.createQuery(Categpict.class);
 		Root<Categpict> catRoot = criteria.from(Categpict.class);
 		criteria.select(catRoot);
-		criteria.where(criteriaBuilder.equal(catRoot.get("id").get("idappli"), idappli));  
+		criteria.where(criteriaBuilder.equal(catRoot.get("id").get("idappli"), idappli)).orderBy(criteriaBuilder.asc(catRoot.get("id").get("idcategory")));  
 		List<Categpict> resultList = entityManager.createQuery(criteria).getResultList();  
-		return resultList.isEmpty() ? null : resultList.get(0).getId().getIdcategory();  
+		return resultList.isEmpty() ? null : resultList;  
 	}
 	
 	public String makeMarkCurrentStatusCodeQuery(Integer lgstmark) {

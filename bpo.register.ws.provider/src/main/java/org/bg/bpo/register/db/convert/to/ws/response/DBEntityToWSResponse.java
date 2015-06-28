@@ -10,12 +10,14 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.bg.bpo.register.db.connectivity.DatabaseConnector;
+import org.bg.bpo.register.db.entities.schema.tmview.Categpict;
 import org.bg.bpo.register.db.entities.schema.tmview.Classmark;
 import org.bg.bpo.register.db.entities.schema.tmview.Mark;
 import org.bg.bpo.register.db.entities.schema.tmview.Picture;
 import org.bg.bpo.register.db.entities.schema.tmview.Priority;
 import org.bg.bpo.register.db.entities.schema.tmview.Publication;
 
+import bg.egov.regix.patentdepartment.ClassDescriptionType;
 import bg.egov.regix.patentdepartment.ExhibitionPriorityType;
 import bg.egov.regix.patentdepartment.GoodsServicesType;
 import bg.egov.regix.patentdepartment.MarkCurrentStatusCodeType;
@@ -74,7 +76,6 @@ public class DBEntityToWSResponse {
 		type.setMarkDisclaimerDetails(getMarkDisclaimerDetails(mark));
 		type.setWordMarkSpecification(setWordMarkSpecification(mark));
 		type.setMarkImageDetails(getMarkImageDetails(mark));
-		
 		type.setGoodsServicesDetails(getGoodsServicesDetails(mark));
 		TradeMarkType.ExhibitionPriorityDetails eDetails = new TradeMarkType.ExhibitionPriorityDetails();
 		TradeMarkType.PriorityDetails details = new TradeMarkType.PriorityDetails();
@@ -97,16 +98,20 @@ public class DBEntityToWSResponse {
 		TradeMarkType.PublicationDetails details = new TradeMarkType.PublicationDetails();
 		List<PublicationType> publications = new ArrayList<PublicationType>();
 		List<Publication> markPublications = mark.getPublications();
-		for(int i = 0 ; i < markPublications.size(); i++) {
-			Publication publication = markPublications.get(i);
+		
+		for(Publication publication : markPublications) {
 			PublicationType type = new PublicationType();
-			type.setPublicationSubsection(publication.getYygazette().toString());
 			type.setPublicationIdentifier(publication.getNogazette().toString());
 			type.setPublicationSection(publication.getNosect());
+			type.setPublicationSubsection(publication.getYygazette().toString());
 			type.setPublicationDate(convertToCalendar(publication.getDttopubli()));
 			publications.add(type);
 		}
-		details.getPublication().addAll(publications);
+		
+		if(publications.size()>0) {
+			details.getPublication().addAll(publications);
+		}
+		
 		return details;
 	}
 
@@ -137,8 +142,7 @@ public class DBEntityToWSResponse {
 		List<ExhibitionPriorityType> ePriorities = new ArrayList<ExhibitionPriorityType>();
 		List<Priority> markPriorities = mark.getPriorities();
 		
-		for(int i = 0 ; i < markPriorities.size(); i++) {
-			Priority priority = markPriorities.get(i);
+		for(Priority priority : markPriorities) {
 			if (priority.getTyprio() == 1) {
 				PriorityType type = new PriorityType();
 				type.setPriorityCountryCode(priority.getIdcountry());
@@ -160,14 +164,24 @@ public class DBEntityToWSResponse {
 
 	private GoodsServicesDetails getGoodsServicesDetails(Mark mark) {
 		TradeMarkType.GoodsServicesDetails details = new TradeMarkType.GoodsServicesDetails();
-		List<GoodsServicesType> services = new ArrayList<GoodsServicesType>();
+		GoodsServicesType goodService = new GoodsServicesType();
 		List<Classmark> classmarks = mark.getClassmarks();
+
+		if(classmarks!=null) {
+			for(Classmark entry : classmarks) {
+				ClassDescriptionType classDescription = new ClassDescriptionType();
+				classDescription.setClassNumber(entry.getIdclass().toString());
+				TextType specif = new TextType();
+				specif.setValue(entry.getSpecif());
+				classDescription.getGoodsServicesDescription().add(specif);
+				goodService.getClassDescriptionDetails().getClassDescription().add(classDescription);
+			}
+		}
 		
-		//TODO Implement this
-//		for (int i = 0; i < classmarks.size(); i++) {
-//			
-//		}
-//		details.setGoodsServices(value);
+		if(goodService.getClassDescriptionDetails().getClassDescription().size()>0) {
+			details.setGoodsServices(goodService);
+		}
+		
 		return details;
 	}
 
@@ -175,25 +189,34 @@ public class DBEntityToWSResponse {
 		TradeMarkType.MarkImageDetails details = new TradeMarkType.MarkImageDetails();
 		MarkImageCategoryType imageCategory = new MarkImageCategoryType();
 		CategoryCodeDetails codeDetails = new CategoryCodeDetails();
-		String imageCategoryValue = connector.getImageCategory(mark.getIdappli());
-		if(imageCategoryValue != null) {
-			codeDetails.getCategoryCode().add(imageCategoryValue);
-		}
-		
-		imageCategory.setCategoryCodeDetails(codeDetails);
-		TextType color = new TextType();
-		color.setValue(mark.getColorclaim());
-		
+
 		MarkImageType markImage = new MarkImageType();
 		final Picture markPicture = mark.getPicture();
+		
 		if(markPicture != null) {
-			markImage.setMarkImageBinary(markPicture.getPicture());
 			markImage.setMarkImageFileFormat(markPicture.getFormatfile());
 		}
 		
+		TextType color = new TextType();
+		color.setValue(mark.getColorclaim());
 		markImage.getMarkImageColourClaimedText().add(color);
+		
+		List<Categpict> imageCategoryValues = connector.getImageCategory(mark.getIdappli());
+		
+		if(imageCategoryValues != null) {
+			for(Categpict entry : imageCategoryValues) {
+				codeDetails.getCategoryCode().add(entry.getId().getIdcategory());
+			}
+		}
+		imageCategory.setCategoryCodeDetails(codeDetails);
 		markImage.setMarkImageCategory(imageCategory);
+		
+		if(markPicture != null) {
+			markImage.setMarkImageBinary(markPicture.getPicture());
+		}
+
 		details.setMarkImage(markImage);
+		
 		return details;
 	}
 

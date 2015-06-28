@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.bg.bpo.register.db.entities.schema.tmview.Categpict;
 import org.bg.bpo.register.db.entities.schema.tmview.Mark;
 import org.bg.bpo.register.exception.ResultSetTooBigException;
 
@@ -58,7 +59,7 @@ public class DatabaseConnector {
 		return queryMaker.makeMarkCurrentStatusCodeQuery(lgstmark);
 	}
 	
-	public String getImageCategory(String idappli) {
+	public List<Categpict> getImageCategory(String idappli) {
 		return queryMaker.makeMarkImageCategoryQuery(idappli);
 	}
 	
