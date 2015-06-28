@@ -1,4 +1,4 @@
-package org.bg.bpo.register.dbconnection;
+package org.bg.bpo.register.dbconnectivity;
 
 import static org.junit.Assert.assertEquals;
 

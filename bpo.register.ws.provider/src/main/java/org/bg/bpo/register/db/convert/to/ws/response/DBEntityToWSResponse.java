@@ -1,4 +1,4 @@
-package org.bg.bpo.register.transform;
+package org.bg.bpo.register.db.convert.to.ws.response;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,24 +37,24 @@ import bg.egov.regix.patentdepartment.TradeMarkType.PublicationDetails;
 import bg.egov.regix.patentdepartment.TradeMarkType.RepresentativeDetails;
 import bg.egov.regix.patentdepartment.WordMarkSpecificationType;
 
-public class ResultTypeTransformator {
+public class DBEntityToWSResponse {
 	DatabaseConnector connector;
 	List<Mark> marks;
 	
-	public ResultTypeTransformator(List<Mark> marks, DatabaseConnector conn) {
+	public DBEntityToWSResponse(List<Mark> marks, DatabaseConnector conn) {
 		connector = conn;
 		this.marks = marks;
 	}
 	
-	public List<TradeMarkType> transformToResultType() {
+	public List<TradeMarkType> convertToWSResponseType() {
 		List<TradeMarkType> list = new ArrayList<TradeMarkType>();
 		for (int i = 0 ; i < marks.size() ; i++) {
-			list.add(transformMark(marks.get(i)));
+			list.add(convertEntity(marks.get(i)));
 		}
 		return list;
 	}
 
-	private TradeMarkType transformMark(Mark mark) {
+	private TradeMarkType convertEntity(Mark mark) {
 		TradeMarkType type = new TradeMarkType();
 		
 		type.setApplicantSideCaseKey(mark.getKdmark().toString());
@@ -229,23 +229,25 @@ public class ResultTypeTransformator {
 			case 4:
 				return "Individual";
 		}
-		return "Not set";
+		
+		return null;
 	}
 
 	private String setMarkFeature(Integer ntmark) {
 		switch (ntmark) {
-		case 1:
-			return "Word";
-		case 2:
-			return "Figurative";
-		case 3:
-			return "Combined";
-		case 4:
-			return "3-D";
-		case 5:
-			return "Sound";
-	}
-	return "Other";
+			case 1:
+				return "Word";
+			case 2:
+				return "Figurative";
+			case 3:
+				return "Combined";
+			case 4:
+				return "3-D";
+			case 5:
+				return "Sound";
+		}
+		
+		return "Other";
 	}
 	
 	private XMLGregorianCalendar convertToCalendar(Date date) throws DatatypeConfigurationException {
