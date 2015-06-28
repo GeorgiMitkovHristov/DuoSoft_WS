@@ -149,8 +149,8 @@ public class DatabaseQueries {
 		CriteriaQuery<Country> criteria = criteriaBuilder.createQuery(Country.class);
 		Root<Country> catRoot = criteria.from(Country.class);
 		criteria.select(catRoot);
-		criteria.where(criteriaBuilder.equal(catRoot.get("id"), idCountry));
+		criteria.where(criteriaBuilder.equal(catRoot.get("idcountry"), idCountry));
 		List<Country> resultList = entityManager.createQuery(criteria).getResultList();  
-		return resultList.isEmpty() ? null : resultList.get(9).getNmcountry();  
+		return resultList.isEmpty() ? null : resultList.get(0).getNmcountry();  
 	}
 }

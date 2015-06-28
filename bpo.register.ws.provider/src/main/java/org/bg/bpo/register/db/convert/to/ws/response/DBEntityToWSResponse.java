@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -21,18 +23,19 @@ import org.bg.bpo.register.db.entities.schema.tmview.Publication;
 import org.bg.bpo.register.db.entities.schema.tmview.Represent;
 
 import bg.egov.regix.patentdepartment.AddressBookType;
+import bg.egov.regix.patentdepartment.AddressBookType.ContactInformationDetails;
 import bg.egov.regix.patentdepartment.AddressType;
+import bg.egov.regix.patentdepartment.ApplicantType;
 import bg.egov.regix.patentdepartment.ClassDescriptionType;
 import bg.egov.regix.patentdepartment.ExhibitionPriorityType;
 import bg.egov.regix.patentdepartment.FormattedAddressType;
 import bg.egov.regix.patentdepartment.FormattedNameAddressType;
 import bg.egov.regix.patentdepartment.FormattedNameType;
 import bg.egov.regix.patentdepartment.GoodsServicesType;
+import bg.egov.regix.patentdepartment.GoodsServicesType.ClassDescriptionDetails;
 import bg.egov.regix.patentdepartment.MarkCurrentStatusCodeType;
 import bg.egov.regix.patentdepartment.MarkImageCategoryType;
-import bg.egov.regix.patentdepartment.AddressBookType.ContactInformationDetails;
 import bg.egov.regix.patentdepartment.MarkImageCategoryType.CategoryCodeDetails;
-import bg.egov.regix.patentdepartment.ApplicantType;
 import bg.egov.regix.patentdepartment.MarkImageType;
 import bg.egov.regix.patentdepartment.NameType;
 import bg.egov.regix.patentdepartment.PriorityType;
@@ -52,6 +55,8 @@ import bg.egov.regix.patentdepartment.TradeMarkType.RepresentativeDetails;
 import bg.egov.regix.patentdepartment.WordMarkSpecificationType;
 
 public class DBEntityToWSResponse {
+    private static final Logger LOG = Logger.getLogger(DBEntityToWSResponse.class.getName());
+    
 	DatabaseConnector connector;
 	List<Mark> marks;
 	
@@ -73,15 +78,43 @@ public class DBEntityToWSResponse {
 		
 		type.setRegistrationOfficeCode("BG");
 		type.setApplicationNumber(mark.getIdappli());
-		type.setApplicationDate(convertToCalendar(mark.getDtappli()));
+		if(mark.getDtappli()!=null) {
+			try {
+				type.setApplicationDate(convertToCalendar(mark.getDtappli()));
+			} catch(DatatypeConfigurationException e) {
+				LOG.log(Level.SEVERE, "Unable to parse Mark->dtappli db field, value was: "+mark.getDtappli(), e);
+				throw e;
+			}
+		}
 		type.setRegistrationNumber(mark.getIdmark());
-		type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
+		if(mark.getDtgrant()!=null) {
+			try {
+				type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
+			} catch(DatatypeConfigurationException e) {
+				LOG.log(Level.SEVERE, "Unable to parse Mark->dtgrant db field, value was: "+mark.getDtgrant(), e);
+				throw e;
+			}
+		}
 		type.setApplicationReference(mark.getLgstmark().toString());
 		type.setApplicantSideCaseKey(mark.getKMark().toString());
 		type.setApplicationLanguageCode("BG");
-		type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
+		if(mark.getDtexpi()!=null) {
+			try {
+				type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
+			} catch(DatatypeConfigurationException e) {
+				LOG.log(Level.SEVERE, "Unable to parse Mark->dtexpi db field, value was: "+mark.getDtexpi(), e);
+				throw e;
+			}
+		}
 		type.setMarkCurrentStatusCode(getMarkCurrentStatusCode(mark));
-		type.setMarkCurrentStatusDate(convertToCalendar(mark.getDtlgstmark()));
+		if(mark.getDtlgstmark()!=null) {
+			try {
+				type.setMarkCurrentStatusDate(convertToCalendar(mark.getDtlgstmark()));
+			} catch(DatatypeConfigurationException e) {
+				LOG.log(Level.SEVERE, "Unable to parse Mark->dtlgstmark db field, value was: "+mark.getDtlgstmark(), e);
+				throw e;
+			}
+		}
 		type.setKindMark(setKindMark(mark.getKdmark()));
 		type.setMarkFeature(setMarkFeature(mark.getNtmark()));
 		type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
@@ -116,7 +149,14 @@ public class DBEntityToWSResponse {
 			type.setPublicationIdentifier(publication.getNogazette().toString());
 			type.setPublicationSection(publication.getNosect());
 			type.setPublicationSubsection(publication.getYygazette().toString());
-			type.setPublicationDate(convertToCalendar(publication.getDttopubli()));
+			if(publication.getDttopubli()!=null) {
+				try {
+					type.setPublicationDate(convertToCalendar(publication.getDttopubli()));
+				} catch(DatatypeConfigurationException e) {
+					LOG.log(Level.SEVERE, "Unable to parse Publication->dttopubli db field, value was: "+publication.getDttopubli(), e);
+					throw e;
+				}
+			}
 			publications.add(type);
 		}
 		
@@ -253,14 +293,28 @@ public class DBEntityToWSResponse {
 				PriorityType type = new PriorityType();
 				type.setPriorityCountryCode(priority.getIdcountry());
 				type.setPriorityNumber(priority.getNoprio());
-				type.setPriorityDate(convertToCalendar(priority.getDtprio()));
+				if(priority.getDtprio()!=null) {
+					try {
+						type.setPriorityDate(convertToCalendar(priority.getDtprio()));
+					} catch(DatatypeConfigurationException e) {
+						LOG.log(Level.SEVERE, "Unable to parse Priority->dtprio db field, value was: "+priority.getDtprio(), e);
+						throw e;
+					}
+				}
 				priorities.add(type);
 			}
 			if (priority.getTyprio() == 2) {
 				ExhibitionPriorityType type = new ExhibitionPriorityType();
 				type.setExhibitionCountryCode(priority.getIdcountry());
 				type.setExhibitionName(priority.getRmprio());
-				type.setExhibitionDate(convertToCalendar(priority.getDtprio()));
+				if(priority.getDtprio()!=null) {
+					try {
+						type.setExhibitionDate(convertToCalendar(priority.getDtprio()));
+					} catch(DatatypeConfigurationException e) {
+						LOG.log(Level.SEVERE, "Unable to parse Priority->dtprio db field, value was: "+priority.getDtprio(), e);
+						throw e;
+					}
+				}
 				ePriorities.add(type);
 			}
 		}
@@ -271,6 +325,8 @@ public class DBEntityToWSResponse {
 	private GoodsServicesDetails getGoodsServicesDetails(Mark mark) {
 		TradeMarkType.GoodsServicesDetails details = new TradeMarkType.GoodsServicesDetails();
 		GoodsServicesType goodService = new GoodsServicesType();
+		ClassDescriptionDetails classDescriptionDetails = new ClassDescriptionDetails();
+		goodService.setClassDescriptionDetails(classDescriptionDetails);
 		List<Classmark> classmarks = mark.getClassmarks();
 
 		if(classmarks!=null) {
@@ -338,6 +394,9 @@ public class DBEntityToWSResponse {
 		
 		type.setMarkVerbalElementText(textType);
 		type.getMarkTranslation().add(textTypeTrans);
+		//No transliteration support in WordMarkSpecificationType
+		//type.getMarkTransliteration().add(textTypeTrans);
+		
 		return type;
 	}
 

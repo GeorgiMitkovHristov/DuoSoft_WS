@@ -10,7 +10,7 @@ import org.bg.bpo.register.exception.ResultSetTooBigException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DatabaseQueriesTests {
+public class DatabaseQueriesTest {
 	private DatabaseConnector dbConn;
 	
 	@Before
