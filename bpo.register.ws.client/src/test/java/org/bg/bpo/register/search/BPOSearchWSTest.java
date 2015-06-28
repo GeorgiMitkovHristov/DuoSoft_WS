@@ -55,7 +55,7 @@ public class BPOSearchWSTest {
 
 	@Test
 	public void getMarksByRegNum() {
-        List<TradeMarkType> foundMarks = port.getMarkByRegNum(556);
+        List<TradeMarkType> foundMarks = port.getMarkByRegNum("00000556");
 		
 		assertEquals("Unexpected size of found marks !", 2, foundMarks.size());
 		assertEquals("Unexpected application numbber found !", "1952120001N", foundMarks.get(0).getApplicationNumber());

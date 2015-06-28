@@ -3,6 +3,7 @@ package bg.egov.regix.patentdepartment;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="regnum" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="regnum" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,21 +32,30 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class GetMarkByRegNumType {
 
-    protected int regnum;
+    @XmlElement(required = true)
+    protected String regnum;
 
     /**
      * Gets the value of the regnum property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getRegnum() {
+    public String getRegnum() {
         return regnum;
     }
 
     /**
      * Sets the value of the regnum property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setRegnum(int value) {
+    public void setRegnum(String value) {
         this.regnum = value;
     }
 
