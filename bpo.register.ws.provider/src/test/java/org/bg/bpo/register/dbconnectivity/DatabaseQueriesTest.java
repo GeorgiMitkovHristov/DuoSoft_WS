@@ -49,7 +49,7 @@ public class DatabaseQueriesTest {
 
 	@Test
 	public void getMarksByRegNum() throws ResultSetTooBigException {
-		List<Mark> marks = dbConn.getMarksByRegNum(556);
+		List<Mark> marks = dbConn.getMarksByRegNum("00000556");
 		
 		assertEquals("Unexpected size of found marks !", 2, marks.size());
 		assertEquals("Unexpected mark idappli attribute found !", "1952120001N", marks.get(0).getIdappli());

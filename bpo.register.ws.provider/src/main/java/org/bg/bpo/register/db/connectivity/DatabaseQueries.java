@@ -36,14 +36,13 @@ public class DatabaseQueries {
 		return entityManager.find(Mark.class, appNumber);
 	}
 	
-	public List<Mark> makeMarkRegistrationNumberQuery(int number) throws ResultSetTooBigException {
+	public List<Mark> makeMarkRegistrationNumberQuery(String number) throws ResultSetTooBigException {
 		CriteriaQuery<Mark> criteria = criteriaBuilder.createQuery(Mark.class);
 		Metamodel model = entityManager.getMetamodel();
 		EntityType<Mark> Mark_ = model.entity(Mark.class);
 		Root<Mark> markRoot = criteria.from(Mark.class);
 		criteria.select(markRoot);
-		String regNum = String.format("%08d",number);
-		criteria.where(criteriaBuilder.equal(markRoot.get(Mark_.getDeclaredSingularAttribute("idmark")), regNum));
+		criteria.where(criteriaBuilder.equal(markRoot.get(Mark_.getDeclaredSingularAttribute("idmark")), number));
 		return executeQuery(criteria);
 	}
 	

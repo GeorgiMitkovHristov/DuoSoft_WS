@@ -6,7 +6,7 @@
 	</xs:element>
 	<xs:complexType name="getMarkByRegNumType">
 		<xs:sequence>
-			<xs:element name="regnum" type="xs:int"/>
+			<xs:element name="regnum" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

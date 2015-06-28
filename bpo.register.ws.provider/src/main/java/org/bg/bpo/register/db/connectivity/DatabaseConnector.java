@@ -51,7 +51,7 @@ public class DatabaseConnector {
 		return queryMaker.makeMarkNameQuery(name);
 	}
 	
-	public List<Mark> getMarksByRegNum(int number) throws ResultSetTooBigException {
+	public List<Mark> getMarksByRegNum(String number) throws ResultSetTooBigException {
 		return queryMaker.makeMarkRegistrationNumberQuery(number);
 	}
 
