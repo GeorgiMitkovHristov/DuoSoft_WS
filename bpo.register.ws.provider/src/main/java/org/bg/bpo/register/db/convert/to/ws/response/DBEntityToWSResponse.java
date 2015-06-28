@@ -46,7 +46,7 @@ public class DBEntityToWSResponse {
 		this.marks = marks;
 	}
 	
-	public List<TradeMarkType> convertToWSResponseType() {
+	public List<TradeMarkType> convertToWSResponseType() throws DatatypeConfigurationException {
 		List<TradeMarkType> list = new ArrayList<TradeMarkType>();
 		for (int i = 0 ; i < marks.size() ; i++) {
 			list.add(convertEntity(marks.get(i)));
@@ -54,44 +54,36 @@ public class DBEntityToWSResponse {
 		return list;
 	}
 
-	private TradeMarkType convertEntity(Mark mark) {
+	private TradeMarkType convertEntity(Mark mark) throws DatatypeConfigurationException {
 		TradeMarkType type = new TradeMarkType();
 		
-		type.setApplicantSideCaseKey(mark.getKdmark().toString());
-		type.setApplicationLanguageCode("BG");
+		type.setRegistrationOfficeCode("BG");
 		type.setApplicationNumber(mark.getIdappli());
+		type.setApplicationDate(convertToCalendar(mark.getDtappli()));
+		type.setRegistrationNumber(mark.getIdmark());
+		type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
 		type.setApplicationReference(mark.getLgstmark().toString());
+		type.setApplicantSideCaseKey(mark.getKMark().toString());
+		type.setApplicationLanguageCode("BG");
+		type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
+		type.setMarkCurrentStatusCode(getMarkCurrentStatusCode(mark));
+		type.setMarkCurrentStatusDate(convertToCalendar(mark.getDtlgstmark()));
 		type.setKindMark(setKindMark(mark.getKdmark()));
 		type.setMarkFeature(setMarkFeature(mark.getNtmark()));
-		type.setRegistrationNumber(mark.getIdmark());
-		type.setRegistrationOfficeCode("BG");
+		type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
+		type.setMarkDisclaimerDetails(getMarkDisclaimerDetails(mark));
 		type.setWordMarkSpecification(setWordMarkSpecification(mark));
+		type.setMarkImageDetails(getMarkImageDetails(mark));
 		
-		type.setMarkCurrentStatusCode(getMarkCurrentStatusCode(mark));
-		
-		try {
-			type.setApplicationDate(convertToCalendar(mark.getDtappli()));
-			type.setExpiryDate(convertToCalendar(mark.getDtexpi()));
-			type.setRegistrationDate(convertToCalendar(mark.getDtgrant()));
-			type.setMarkCurrentStatusDate(convertToCalendar(mark.getDtlgstmark()));
-		
-		
-			type.setMarkImageDetails(getMarkImageDetails(mark));
-			type.setGoodsServicesDetails(getGoodsServicesDetails(mark));
-			type.setApplicantDetails(getApplicantDetails(mark));
-			type.setRepresentativeDetails(getRepresentativeDetails(mark));
-			type.setMarkDescriptionDetails(getMarkDescriptionDetails(mark));
-			type.setMarkDisclaimerDetails(getMarkDisclaimerDetails(mark));
-			type.setPublicationDetails(getPublicationDetails(mark));
-			
-			TradeMarkType.ExhibitionPriorityDetails eDetails = new TradeMarkType.ExhibitionPriorityDetails();
-			TradeMarkType.PriorityDetails details = new TradeMarkType.PriorityDetails();
-			setPriorityDetails(mark, details, eDetails);
-			type.setPriorityDetails(details);
-			type.setExhibitionPriorityDetails(eDetails);
-			
-		} catch (DatatypeConfigurationException exc) {
-		}
+		type.setGoodsServicesDetails(getGoodsServicesDetails(mark));
+		TradeMarkType.ExhibitionPriorityDetails eDetails = new TradeMarkType.ExhibitionPriorityDetails();
+		TradeMarkType.PriorityDetails details = new TradeMarkType.PriorityDetails();
+		setPriorityDetails(mark, details, eDetails);
+		type.setPriorityDetails(details);
+		type.setExhibitionPriorityDetails(eDetails);
+		type.setPublicationDetails(getPublicationDetails(mark));
+		type.setApplicantDetails(getApplicantDetails(mark));
+		type.setRepresentativeDetails(getRepresentativeDetails(mark));
 		
 		return type;
 	}
@@ -170,6 +162,8 @@ public class DBEntityToWSResponse {
 		TradeMarkType.GoodsServicesDetails details = new TradeMarkType.GoodsServicesDetails();
 		List<GoodsServicesType> services = new ArrayList<GoodsServicesType>();
 		List<Classmark> classmarks = mark.getClassmarks();
+		
+		//TODO Implement this
 //		for (int i = 0; i < classmarks.size(); i++) {
 //			
 //		}
