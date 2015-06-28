@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import bg.egov.regix.patentdepartment.TradeMarkType;
 
-public class TestBPOSearchWS {
+public class BPOSearchWSTest {
     private static final QName SERVICE_NAME = new QName("http://bg.org/bpo/register/search/", "BPOSearchService");
     private static BPOSearchService ss;
     private static BPORegisterSearch port;
@@ -50,7 +50,7 @@ public class TestBPOSearchWS {
 		assertEquals("Unexpected size of found marks !", 1, foundMarks.size());
 		assertEquals("Unexpected application numbber found !", "2002061560N", foundMarks.get(0).getApplicationNumber());
 		assertEquals("Unexpected registration number found !", "", foundMarks.get(0).getRegistrationNumber());
-		assertEquals("Unexpected description details found !", "Сувенирный Белый Айст", foundMarks.get(0).getMarkDescriptionDetails());
+		assertEquals("Unexpected description details found !", "", foundMarks.get(0).getMarkDescriptionDetails().getMarkDescription().get(0));
 	}
 
 	@Test
