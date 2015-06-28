@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.bg.bpo.register.db.entities.schema.publik.Owner;
+import org.bg.bpo.register.db.entities.schema.publik.OwnerAddress;
 
 
 /**
@@ -31,6 +32,13 @@ public class Own implements Serializable {
 	@JoinColumn(name="idowner")
 	private Owner owner;
 
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="idowner", referencedColumnName="idowner", updatable=false, insertable=false),
+		@JoinColumn(name="idaddress", referencedColumnName="idaddress", updatable=false, insertable=false)
+	})
+	private OwnerAddress ownerAddress;
+	
 	public Own() {
 	}
 
@@ -66,4 +74,11 @@ public class Own implements Serializable {
 		this.owner = owner;
 	}
 
+	public OwnerAddress getOwnerAddress() {
+		return this.ownerAddress;
+	}
+
+	public void setOwnerAddress(OwnerAddress ownerAddress) {
+		this.ownerAddress = ownerAddress;
+	}
 }

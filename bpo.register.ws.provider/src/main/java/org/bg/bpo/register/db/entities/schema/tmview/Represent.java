@@ -1,7 +1,16 @@
 package org.bg.bpo.register.db.entities.schema.tmview;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+
+import org.bg.bpo.register.db.entities.schema.publik.Agent;
+import org.bg.bpo.register.db.entities.schema.publik.AgentAddress;
 
 
 /**
@@ -22,6 +31,22 @@ public class Represent implements Serializable {
 
 	private Integer odagent;
 
+	//bi-directional many-to-one association to Mark
+	@ManyToOne
+	@JoinColumn(name="idappli", insertable=false, updatable=false)
+	private Mark mark;
+	
+	@ManyToOne
+	@JoinColumn(name="idagent", insertable=false, updatable=false)
+	private Agent agent;
+	
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="idagent", referencedColumnName="idagent", insertable=false, updatable=false),
+		@JoinColumn(name="idaddress", referencedColumnName="idaddress", insertable=false, updatable=false)
+	})
+	private AgentAddress agentAddress;
+	
 	public Represent() {
 	}
 
@@ -57,4 +82,27 @@ public class Represent implements Serializable {
 		this.odagent = odagent;
 	}
 
+	public Mark getMark() {
+		return this.mark;
+	}
+
+	public void setMark(Mark mark) {
+		this.mark = mark;
+	}
+	
+	public Agent getAgent() {
+		return this.agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
+
+	public AgentAddress getAgentAddress() {
+		return this.agentAddress;
+	}
+
+	public void setAgentAddress(AgentAddress agentAddress) {
+		this.agentAddress = agentAddress;
+	}
 }

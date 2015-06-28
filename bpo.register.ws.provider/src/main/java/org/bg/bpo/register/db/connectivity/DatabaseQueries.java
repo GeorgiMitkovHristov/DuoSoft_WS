@@ -15,6 +15,7 @@ import javax.persistence.metamodel.Metamodel;
 import org.bg.bpo.register.db.entities.schema.publik.Owner;
 import org.bg.bpo.register.db.entities.schema.tmview.BackofficeTmviewStatusMap;
 import org.bg.bpo.register.db.entities.schema.tmview.Categpict;
+import org.bg.bpo.register.db.entities.schema.tmview.Country;
 import org.bg.bpo.register.db.entities.schema.tmview.Mark;
 import org.bg.bpo.register.db.entities.schema.tmview.Own;
 import org.bg.bpo.register.exception.ResultSetTooBigException;
@@ -142,5 +143,14 @@ public class DatabaseQueries {
 		criteria.select(mapRoot);
 		criteria.where(criteriaBuilder.equal(mapRoot.get(Map_.getDeclaredSingularAttribute("backofficeStatusId")), lgstmark));
 		return entityManager.createQuery(criteria).getResultList().get(0).getTmviewDetailedCode();
+	}
+	
+	public String makeCountryCodeQuery(String idCountry) {
+		CriteriaQuery<Country> criteria = criteriaBuilder.createQuery(Country.class);
+		Root<Country> catRoot = criteria.from(Country.class);
+		criteria.select(catRoot);
+		criteria.where(criteriaBuilder.equal(catRoot.get("id"), idCountry));
+		List<Country> resultList = entityManager.createQuery(criteria).getResultList();  
+		return resultList.isEmpty() ? null : resultList.get(9).getNmcountry();  
 	}
 }

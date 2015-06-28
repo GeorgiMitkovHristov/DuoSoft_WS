@@ -15,11 +15,12 @@
 		<class>org.bg.bpo.register.db.entities.schema.tmview.Categpict</class>
 		<class>org.bg.bpo.register.db.entities.schema.tmview.CategpictPK</class>
 		<class>org.bg.bpo.register.db.entities.schema.tmview.Represent</class>
+		<class>org.bg.bpo.register.db.entities.schema.tmview.Country</class>
 		<class>org.bg.bpo.register.db.entities.schema.publik.Agent</class>
 		<class>org.bg.bpo.register.db.entities.schema.publik.AgentAddress</class>
+		<class>org.bg.bpo.register.db.entities.schema.publik.AgentAddressPK</class>
 		<class>org.bg.bpo.register.db.entities.schema.publik.Owner</class>
 		<class>org.bg.bpo.register.db.entities.schema.publik.OwnerAddress</class>
-		<class>org.bg.bpo.register.db.entities.schema.publik.AgentAddressPK</class>
 		<class>org.bg.bpo.register.db.entities.schema.publik.OwnerAddressPK</class>
 	
 	    <properties>

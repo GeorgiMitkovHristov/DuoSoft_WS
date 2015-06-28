@@ -66,4 +66,8 @@ public class DatabaseConnector {
 	public void setPersistenceUnitName(final String persistenceUnitName) {
 		factory = Persistence.createEntityManagerFactory(persistenceUnitName);
 	}
+	
+	public String getCountryCode(String idCountry) {
+		return queryMaker.makeCountryCodeQuery(idCountry);
+	}
 }

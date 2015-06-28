@@ -1,5 +1,6 @@
 package org.bg.bpo.register.db.convert.to.ws.response;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,19 +14,30 @@ import org.bg.bpo.register.db.connectivity.DatabaseConnector;
 import org.bg.bpo.register.db.entities.schema.tmview.Categpict;
 import org.bg.bpo.register.db.entities.schema.tmview.Classmark;
 import org.bg.bpo.register.db.entities.schema.tmview.Mark;
+import org.bg.bpo.register.db.entities.schema.tmview.Own;
 import org.bg.bpo.register.db.entities.schema.tmview.Picture;
 import org.bg.bpo.register.db.entities.schema.tmview.Priority;
 import org.bg.bpo.register.db.entities.schema.tmview.Publication;
+import org.bg.bpo.register.db.entities.schema.tmview.Represent;
 
+import bg.egov.regix.patentdepartment.AddressBookType;
+import bg.egov.regix.patentdepartment.AddressType;
 import bg.egov.regix.patentdepartment.ClassDescriptionType;
 import bg.egov.regix.patentdepartment.ExhibitionPriorityType;
+import bg.egov.regix.patentdepartment.FormattedAddressType;
+import bg.egov.regix.patentdepartment.FormattedNameAddressType;
+import bg.egov.regix.patentdepartment.FormattedNameType;
 import bg.egov.regix.patentdepartment.GoodsServicesType;
 import bg.egov.regix.patentdepartment.MarkCurrentStatusCodeType;
 import bg.egov.regix.patentdepartment.MarkImageCategoryType;
+import bg.egov.regix.patentdepartment.AddressBookType.ContactInformationDetails;
 import bg.egov.regix.patentdepartment.MarkImageCategoryType.CategoryCodeDetails;
+import bg.egov.regix.patentdepartment.ApplicantType;
 import bg.egov.regix.patentdepartment.MarkImageType;
+import bg.egov.regix.patentdepartment.NameType;
 import bg.egov.regix.patentdepartment.PriorityType;
 import bg.egov.regix.patentdepartment.PublicationType;
+import bg.egov.regix.patentdepartment.RepresentativeType;
 import bg.egov.regix.patentdepartment.TextType;
 import bg.egov.regix.patentdepartment.TradeMarkType;
 import bg.egov.regix.patentdepartment.TradeMarkType.ApplicantDetails;
@@ -127,14 +139,108 @@ public class DBEntityToWSResponse {
 		return details;
 	}
 
-	private RepresentativeDetails getRepresentativeDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+	private ApplicantDetails getApplicantDetails(Mark mark) {
+		ApplicantDetails applicantDetails = new ApplicantDetails();
+		ApplicantType applicantType = new ApplicantType();
+		
+		for(Own own : mark.getOwns()) {
+			applicantType.getApplicantIdentifier().add(own.getId().getIdowner().toString());
+			applicantType.setApplicantNationalityCode(own.getOwner().getNationown());
+			applicantType.setApplicantAddressBook(getAddressBookType(own));
+		}
+		
+		if(applicantType.getApplicantIdentifier().size()>0) {
+			applicantDetails.setApplicant(applicantType);
+		}
+		
+		return applicantDetails;
+	}
+	
+	private AddressBookType getAddressBookType(Own own) {
+		AddressBookType address = new AddressBookType();
+		
+		FormattedNameAddressType formattedNameAddress = new FormattedNameAddressType();
+		NameType nameType = new NameType();
+		FormattedNameType formattedNameType = new FormattedNameType();
+		formattedNameType.setNamePrefix(own.getOwner().getTitowner());
+		formattedNameType.setFirstName(own.getOwner().getFnowner());
+		formattedNameType.setMiddleName(own.getOwner().getMidnowner());
+		formattedNameType.setLastName(own.getOwner().getNmowner());
+		formattedNameType.setOrganizationName(own.getOwner().getNtincorp().toString());
+		nameType.setFormattedName(formattedNameType);
+		formattedNameAddress.setName(nameType);
+		
+		AddressType addressType = new AddressType();
+		FormattedAddressType formattedAddressType = new FormattedAddressType();
+		formattedAddressType.setAddressStreet(own.getOwnerAddress().getAdowner());
+		formattedAddressType.setAddressCity(own.getOwnerAddress().getNmtown());
+		formattedAddressType.setAddressCounty(connector.getCountryCode(own.getOwnerAddress().getIdcountry()));
+		formattedAddressType.setAddressState(own.getOwnerAddress().getNmstate());
+		formattedAddressType.setAddressPostcode(own.getOwnerAddress().getIdtown());
+		formattedAddressType.setFormattedAddressCountryCode(own.getOwnerAddress().getIdcountry());
+		addressType.setFormattedAddress(formattedAddressType);
+		formattedNameAddress.setAddress(addressType);
+		address.setFormattedNameAddress(formattedNameAddress);
+		
+		ContactInformationDetails contactInformationDetails = new ContactInformationDetails();
+		contactInformationDetails.getPhone().add(own.getOwner().getTelowner());
+		contactInformationDetails.getFax().add(own.getOwner().getFaxowner());
+		contactInformationDetails.getEmail().add(own.getOwner().getEmailowner());
+		address.setContactInformationDetails(contactInformationDetails);
+		
+		return address;
 	}
 
-	private ApplicantDetails getApplicantDetails(Mark mark) {
-		// TODO Auto-generated method stub
-		return null;
+	private RepresentativeDetails getRepresentativeDetails(Mark mark) {
+		RepresentativeDetails representativeDetails = new RepresentativeDetails();
+		RepresentativeType representativeType = new RepresentativeType();
+		
+		for(Represent represent : mark.getRepresents()) {
+			representativeType.setRepresentativeIdentifier(new BigInteger(represent.getAgent().getIdagent().toString()));
+			representativeType.setRepresentativeNationalityCode(represent.getAgent().getNatioagent());
+			representativeType.setRepresentativeLegalEntity(represent.getAgent().getKdagent().toString());
+			representativeType.setRepresentativeAddressBook(getAddressBookType(represent));
+		}
+
+		if(representativeType!=null) {
+			representativeDetails.setRepresentative(representativeType);
+		}
+		
+		return representativeDetails;
+	}
+
+	private AddressBookType getAddressBookType(Represent represent) {
+		AddressBookType address = new AddressBookType();
+		
+		FormattedNameAddressType formattedNameAddress = new FormattedNameAddressType();
+		NameType nameType = new NameType();
+		FormattedNameType formattedNameType = new FormattedNameType();
+		formattedNameType.setNamePrefix(represent.getAgent().getTitagent());
+		formattedNameType.setFirstName(represent.getAgent().getFnagent());
+		formattedNameType.setMiddleName(represent.getAgent().getMidnagent());
+		formattedNameType.setLastName(represent.getAgent().getNmagent());
+		nameType.setFormattedName(formattedNameType);
+		formattedNameAddress.setName(nameType);
+		
+		AddressType addressType = new AddressType();
+		FormattedAddressType formattedAddressType = new FormattedAddressType();
+		formattedAddressType.setAddressStreet(represent.getAgentAddress().getAdagent());
+		formattedAddressType.setAddressCity(represent.getAgentAddress().getNmtown());
+		formattedAddressType.setAddressCounty(connector.getCountryCode(represent.getAgentAddress().getIdcountry()));
+		formattedAddressType.setAddressState(represent.getAgentAddress().getNmstate());
+		formattedAddressType.setAddressPostcode(represent.getAgentAddress().getIdtown());
+		formattedAddressType.setFormattedAddressCountryCode(represent.getAgentAddress().getIdcountry());
+		addressType.setFormattedAddress(formattedAddressType);
+		formattedNameAddress.setAddress(addressType);
+		address.setFormattedNameAddress(formattedNameAddress);
+		
+		ContactInformationDetails contactInformationDetails = new ContactInformationDetails();
+		contactInformationDetails.getPhone().add(represent.getAgent().getTelagent());
+		contactInformationDetails.getFax().add(represent.getAgent().getFaxagent());
+		contactInformationDetails.getEmail().add(represent.getAgent().getEmailagent());
+		address.setContactInformationDetails(contactInformationDetails);
+		
+		return address;
 	}
 
 	private void setPriorityDetails(Mark mark, PriorityDetails pd, ExhibitionPriorityDetails epd) throws DatatypeConfigurationException {

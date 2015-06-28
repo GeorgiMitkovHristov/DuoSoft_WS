@@ -94,6 +94,10 @@ public class Mark implements Serializable {
 	@OneToMany(mappedBy="mark")
 	private List<Own> owns;
 
+	//bi-directional many-to-one association to Own
+	@OneToMany(mappedBy="mark")
+	private List<Represent> represents;
+	
 	public Mark() {
 	}
 
@@ -376,4 +380,24 @@ public class Mark implements Serializable {
 		return own;
 	}
 
+	public List<Represent> getRepresents() {
+		return this.represents;
+	}
+
+	public void setRepresents(List<Represent> represents) {
+		this.represents = represents;
+	}
+
+	public Represent addRepresent(Represent represent) {
+		getRepresents().add(represent);
+		represent.setMark(this);
+
+		return represent;
+	}
+
+	public Represent removeRepresent(Represent represent) {
+		getRepresents().remove(represent);
+		represent.setMark(null);
+		return represent;
+	}
 }

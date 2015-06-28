@@ -22,21 +22,27 @@ public class OwnPK implements Serializable {
 
 	public OwnPK() {
 	}
+	
 	public Integer getIdowner() {
 		return this.idowner;
 	}
+	
 	public void setIdowner(Integer idowner) {
 		this.idowner = idowner;
 	}
+	
 	public String getIdappli() {
 		return this.idappli;
 	}
+	
 	public void setIdappli(String idappli) {
 		this.idappli = idappli;
 	}
+	
 	public Integer getIdaddress() {
 		return this.idaddress;
 	}
+	
 	public void setIdaddress(Integer idaddress) {
 		this.idaddress = idaddress;
 	}
